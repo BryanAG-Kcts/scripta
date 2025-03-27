@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/chrome-manifest",
+  "manifest_version": 3,
+  "name": "Scripta",
+  "version": "1.0",
+  "description": "Una extensión para corregir textos en tiempo real.",
+  "icons": {
+    "48": ""
+  },
+  "action": {}
+}
