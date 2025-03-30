@@ -34,7 +34,7 @@
         "useImportExtensions": "off"
       },
       "suspicious": {
-        "noReactSpecificProps":"off"
+        "noReactSpecificProps": "off"
       }
     }
   },

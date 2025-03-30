@@ -17,12 +17,17 @@
   --color-background-100: var(--color-surface-100);
   --color-background-200: var(--color-surface-200);
   --color-background-300: var(--color-surface-300);
+  --color-background-400: var(--color-surface-400);
+  --color-background-500: var(--color-surface-500);
 
   --color-text-000: var(--color-black);
   --color-text-300: var(--color-surface-300);
 
   /* Primary colors */
+  --color-primary-100: #ebd5ff;
+  --color-primary-200: #c384fc;
   --color-primary-300: #9333e9;
+  --color-primary-900: #6721a8;
 
   /* units of measurement */
   --border-radius-sm: var(--radius-sm);
@@ -50,4 +55,5 @@ body {
   background-color: var(--color-background-000);
   color: var(--color-text-000);
   font-family: 'quicksand', sans-serif;
+  position: relative;
 }

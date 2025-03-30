@@ -4,7 +4,7 @@
 }
 
 .switch {
-  border: 1px solid var(--color-background-100);
+  border: 1px solid var(--color-background-300);
   border-radius: 999999px;
   display: flex;
   padding: 3px;
@@ -14,13 +14,13 @@
 .switch span {
   width: 14px;
   height: 14px;
-  background: var(--color-background-200);
+  background: var(--color-background-500);
   border-radius: 50%;
   position: relative;
   transition: background 0.3s, transform 0.2s;
 }
 
 .switchContainer:has(input[type='checkbox']:checked) .option {
-  background: var(--color-background-100);
+  background: var(--color-background-300);
   transform: translateX(100%);
 }

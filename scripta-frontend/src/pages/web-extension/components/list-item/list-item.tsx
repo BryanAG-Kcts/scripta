@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import checkItemStyles from '../check-item/styles.module.css'
+import listItemStyles from './styles.module.css'
 
 interface Props {
   label: string
@@ -17,7 +18,7 @@ export function ListItem({ children, label, options }: Props) {
         <p>{label}</p>
       </div>
 
-      <datalist>
+      <select className={listItemStyles.select}>
         {options.map(({ value, label }) => (
           <option
             key={value}
@@ -26,7 +27,7 @@ export function ListItem({ children, label, options }: Props) {
             {label}
           </option>
         ))}
-      </datalist>
+      </select>
     </div>
   )
 }

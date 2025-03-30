@@ -1,0 +1,64 @@
+.bg {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.picture svg {
+  width: 100%;
+}
+
+.picture svg:nth-child(2) {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.bg {
+  height: 60%;
+  background-image: linear-gradient(
+    var(--color-primary-100) 0%,
+    var(--color-primary-200) 30%,
+    var(--color-primary-300) 100%
+  );
+  filter: blur(1px);
+}
+
+@media (min-width: 1020px) {
+  .picture svg:nth-child(1) {
+    height: calc(200px + 10vh);
+  }
+
+  .picture svg:nth-child(2) {
+    height: calc(100px + 10vh);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .bg {
+    filter: blur(1px) brightness(0.5);
+  }
+
+  .picture svg {
+    filter: brightness(0.7);
+  }
+}
+
+.main {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.main div p {
+  max-width: 120ch;
+}
+
+.main div h2 {
+  font-family: 'poppins', sans-serif;
+  font-size: 2em;
+  font-weight: 600;
+}
