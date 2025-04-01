@@ -1,0 +1,56 @@
+.register {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.register > svg {
+  width: 100%;
+  min-height: 100px;
+}
+
+.registerMain {
+  display: flex;
+  gap: 32px;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.registerMain article {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: center;
+}
+
+.registerMain article p {
+  font-size: 0.85em;
+}
+
+.registerMain article h1 {
+  font-size: 2em;
+  font-family: 'poppins', sans-serif;
+  font-weight: 600;
+}
+
+@media (min-width: 1024px) {
+  .registerMain {
+    flex-direction: row;
+    justify-content: center;
+    gap: 46px;
+  }
+
+  .registerMain article {
+    text-align: left;
+    gap: 10px;
+    max-width: 40ch;
+  }
+
+  .registerMain article h1 {
+    font-size: 3em;
+  }
+}

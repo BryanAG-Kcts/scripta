@@ -1,0 +1,16 @@
+.passwordInput {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.passwordInput input {
+  width: 100%;
+}
+
+.passwordInput button {
+  position: absolute;
+  margin: 0 10px;
+  cursor: pointer;
+}

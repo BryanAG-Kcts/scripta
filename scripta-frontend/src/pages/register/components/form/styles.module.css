@@ -1,0 +1,19 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.form > p {
+  font-family: 'poppins', sans-serif;
+  font-size: 1.25em;
+  font-weight: 600;
+}
+
+.form form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}

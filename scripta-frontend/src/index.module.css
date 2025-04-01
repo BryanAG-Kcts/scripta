@@ -1,0 +1,40 @@
+.textInput {
+  outline: none;
+  border-radius: var(--border-radius-sm);
+  padding: 15px 30px;
+  color: var(--color-primary-900);
+  background: var(--color-primary-100);
+}
+
+.textInput::placeholder {
+  color: var(--color-primary-900);
+}
+
+.formButton {
+  background: var(--color-primary-300);
+  padding: 15px 30px;
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.3s;
+  color: var(--color-primary-100);
+}
+
+.formButton:hover {
+  filter: brightness(1.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  .textInput {
+    background: var(--color-primary-900);
+    color: var(--color-white);
+  }
+
+  .textInput::placeholder {
+    color: var(--color-white);
+  }
+
+  .formButton {
+    background: var(--color-primary-950);
+  }
+}

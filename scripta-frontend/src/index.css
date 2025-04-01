@@ -28,6 +28,7 @@
   --color-primary-200: #c384fc;
   --color-primary-300: #9333e9;
   --color-primary-900: #6721a8;
+  --color-primary-950: #380764;
 
   /* units of measurement */
   --border-radius-sm: var(--radius-sm);

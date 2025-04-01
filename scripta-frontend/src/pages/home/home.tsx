@@ -1,6 +1,7 @@
 import { LowWave, MediumWave } from '../../components/waves/waves'
 import { Editor } from './components/editor/editor'
 import { Header } from './components/header/header'
+import { SuggestPane } from './components/suggest-pane/suggest-pane'
 import homeStyles from './styles.module.css'
 
 export function Home() {
@@ -18,7 +19,10 @@ export function Home() {
             </p>
           </div>
 
-          <Editor />
+          <div className='flex flex-col gap-7 md:flex-row'>
+            <Editor />
+            <SuggestPane />
+          </div>
         </main>
       </section>
 
