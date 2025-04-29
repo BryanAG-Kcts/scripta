@@ -10,6 +10,10 @@
   color: var(--color-primary-900);
 }
 
+.textInput:focus::placeholder {
+  font-style: italic;
+}
+
 .formButton {
   background: var(--color-primary-300);
   padding: 15px 30px;
@@ -18,10 +22,11 @@
   cursor: pointer;
   transition: filter 0.3s;
   color: var(--color-primary-100);
+  filter: brightness(1.2);
 }
 
 .formButton:hover {
-  filter: brightness(1.2);
+  filter: brightness(1.5);
 }
 
 @media (prefers-color-scheme: dark) {

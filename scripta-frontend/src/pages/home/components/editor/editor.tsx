@@ -1,9 +1,25 @@
+import { CreateMLCEngine } from '@mlc-ai/web-llm'
 import { IconCopy, IconTrash } from '@tabler/icons-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import editorStyles from './styles.module.css'
 
 export function Editor() {
   const [textareaValue, setTextareaValue] = useState('')
+
+  useEffect(() => {
+    async function main() {
+      const initProgressCallback = initProgress => {
+        console.log(initProgress)
+      }
+      const selectedModel = 'Llama-3.2-1B-Instruct-q4f16_1-MLC'
+
+      const engine = await CreateMLCEngine(
+        selectedModel,
+        { initProgressCallback: initProgressCallback } // engineConfig
+      )
+    }
+    main()
+  }, [])
 
   function handleCopyText() {
     navigator.clipboard.writeText(textareaValue)

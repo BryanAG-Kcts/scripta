@@ -1,8 +1,8 @@
 import cors from 'cors'
 import express, { type Express, json } from 'express'
 import { indexRouter } from '../routes/index.routes'
+import { PgConnection } from '../services/pgConnection.services'
 import { ENVIRONMENT } from './environment'
-import { PgConnection }  from '../services/pgConnection.services'
 
 export class Server {
   app: Express
@@ -13,8 +13,8 @@ export class Server {
     this.port = ENVIRONMENT.port
   }
 
-  async connectionDB(){
-    PgConnection.getInstance();
+  connectionDb() {
+    PgConnection.getInstance()
   }
 
   middlewares() {
@@ -27,7 +27,7 @@ export class Server {
   }
 
   runServer() {
-    this.connectionDB()
+    this.connectionDb()
     this.middlewares()
     this.routes()
 

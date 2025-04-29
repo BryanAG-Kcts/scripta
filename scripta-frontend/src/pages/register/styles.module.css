@@ -31,6 +31,10 @@
   font-size: 0.85em;
 }
 
+.registerMain article p span {
+  color: var(--color-primary-300);
+}
+
 .registerMain article h1 {
   font-size: 2em;
   font-family: 'poppins', sans-serif;

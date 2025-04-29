@@ -1,4 +1,5 @@
 import { LowWave } from '@/components/waves/waves'
+import { Link } from 'wouter'
 import { Header } from '../register/components/header/header'
 import registerStyles from '../register/styles.module.css'
 import { Form } from './components/form/form'
@@ -16,13 +17,13 @@ export function Login() {
           </h2>
           <p>
             Si no tienes una cuenta registrada puedes
-            <a
+            <Link
               className={loginStyles.anchor}
-              href='/'
+              href='/register'
             >
               {' '}
               registrarte aquí
-            </a>
+            </Link>
           </p>
         </article>
 
