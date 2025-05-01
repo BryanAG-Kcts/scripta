@@ -1,0 +1,1819 @@
+const controller = new AbortController();
+setTimeout(() => controller.abort(), 60000); // 30 segundos
+
+try {
+  const response = await fetch('http://localhost:8000/ia/kadolia', { signal: controller.signal,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        "messages": [
+          {
+            "role": "user",
+            "content": `
+              [
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "alta",
+      "data": "el investigador propone que el estudio es muy interesante, interesante por que revela cosas interesantes."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "el",
+          "category": "Ortografía",
+          "type": "Mayúsculas y minúsculas",
+          "question": "",
+          "explanation": "La primera letra de un párrafo debe ir en mayúscula.",
+          "position": [0, 2]
+        },
+        {
+          "data": "interesante, interesante",
+          "category": "Redacción",
+          "type": "Redundancia léxica",
+          "question": "¿Estás repitiendo la misma palabra varias veces sin aportar información nueva?",
+          "explanation": "Repetir 'interesante' varias veces en una sola oración puede parecer redundante y pobre en vocabulario.",
+          "position": [42, 65]
+        },
+        {
+          "data": "por que",
+          "category": "Ortografía",
+          "type": "Uso de conectores",
+          "question": "¿Deberías usar 'porque' como una sola palabra para explicar una causa?",
+          "explanation": "'Porque' se escribe junto cuando se usa para indicar causa o razón.",
+          "position": [66, 73]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "media",
+      "data": "Los alumnos estudiaron mucho sin embargo no pasaron el examen, no pasaron por que era dificil."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "sin embargo",
+          "category": "Puntuación",
+          "type": "Falta de coma",
+          "question": "",
+          "explanation": "Debe ir una coma antes de 'sin embargo' si conecta dos oraciones independientes.",
+          "position": [28, 39]
+        },
+        {
+          "data": "no pasaron",
+          "category": "Redacción",
+          "type": "Repetición innecesaria",
+          "question": "",
+          "explanation": "Se repite la frase 'no pasaron' en un contexto muy cercano. Considera reformular.",
+          "position": [41, 52]
+        },
+        {
+          "data": "por que",
+          "category": "Ortografía",
+          "type": "Uso de conectores",
+          "question": "",
+          "explanation": "La forma correcta es 'porque' cuando se da una causa.",
+          "position": [65, 72]
+        },
+        {
+          "data": "dificil",
+          "category": "Ortografía",
+          "type": "Tilde",
+          "question": "",
+          "explanation": "La palabra correcta es 'difícil', con tilde en la 'i'.",
+          "position": [77, 84]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "media",
+      "data": "El sistema operativo provee funciones que ayuda a los usuarios a navegar. Estos ayuda se presentan en la interfaz."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "ayuda a los usuarios",
+          "category": "Gramática",
+          "type": "Concordancia de número",
+          "question": "",
+          "explanation": "Debe ser 'ayudan' para concordar con el sujeto plural 'funciones'.",
+          "position": [42, 63]
+        },
+        {
+          "data": "Estos ayuda",
+          "category": "Gramática",
+          "type": "Concordancia de género y número",
+          "question": "",
+          "explanation": "'Ayuda' es singular y femenino; debe decirse 'Esta ayuda' o cambiar 'ayuda' por un plural.",
+          "position": [65, 76]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "baja",
+      "data": "en conclusion, los resultados no fueron concluyentes debido a que los resultados fueron contradictorios."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "en conclusion",
+          "category": "Ortografía",
+          "type": "Mayúsculas y tildes",
+          "question": "¿Debería llevar tilde esta expresión?",
+          "explanation": "La expresión correcta es 'En conclusión', con mayúscula inicial y tilde en 'conclusión'.",
+          "position": [0, 13]
+        },
+        {
+          "data": "los resultados fueron contradictorios",
+          "category": "Redacción",
+          "type": "Repetición innecesaria",
+          "question": "¿Es necesario repetir 'los resultados' dos veces en una sola oración?",
+          "explanation": "Hay una repetición innecesaria del sujeto; puede eliminarse uno de ellos para mayor claridad.",
+          "position": [66, 103]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "baja",
+      "data": "Este analisis muestra que la datos obtenida no son confiables."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "analisis",
+          "category": "Ortografía",
+          "type": "Uso de tildes",
+          "question": "",
+          "explanation": "Debe llevar tilde: 'análisis'.",
+          "position": [5, 13]
+        },
+        {
+          "data": "la datos obtenida",
+          "category": "Gramática",
+          "type": "Concordancia de género y número",
+          "question": "¿Concordan los artículos y adjetivos con el sustantivo 'datos'?",
+          "explanation": "La frase debería decir 'los datos obtenidos' para mantener la concordancia gramatical.",
+          "position": [26, 43]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "baja",
+      "data": "Durante el experimento se observo diferentes fenomenos que afectaron el resultados del mismo."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "se observo",
+          "category": "Ortografía",
+          "type": "Uso de tildes",
+          "question": "",
+          "explanation": "El verbo debe llevar tilde: 'se observó'.",
+          "position": [23, 33]
+        },
+        {
+          "data": "diferentes fenomenos",
+          "category": "Ortografía",
+          "type": "Uso de tildes",
+          "question": "",
+          "explanation": "La palabra correcta es 'fenómenos', con tilde en la 'o'.",
+          "position": [34, 54]
+        },
+        {
+          "data": "el resultados",
+          "category": "Gramática",
+          "type": "Concordancia de género y número",
+          "question": "",
+          "explanation": "Debe decir 'los resultados' para concordar en número.",
+          "position": [69, 82]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "alta",
+      "data": "el autor del articulo sugiere que la metodologia empleada en el estudio es innovadora, innovadora porque utiliza tecnicas nuevas."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "el",
+          "category": "Ortografía",
+          "type": "Mayúsculas y minúsculas",
+          "question": "",
+          "explanation": "La primera letra de un párrafo debe ir en mayúscula.",
+          "position": [0, 2]
+        },
+        {
+          "data": "articulo",
+          "category": "Ortografía",
+          "type": "Tilde",
+          "question": "",
+          "explanation": "La palabra correcta es 'artículo', con tilde en la 'a'.",
+          "position": [11, 19]
+        },
+        {
+          "data": "innovadora, innovadora",
+          "category": "Redacción",
+          "type": "Redundancia léxica",
+          "question": "¿Estás repitiendo la misma palabra sin aportar claridad?",
+          "explanation": "Repetir 'innovadora' es redundante. Usa sinónimos o elimina la repetición.",
+          "position": [68, 91]
+        },
+        {
+          "data": "porque",
+          "category": "Ortografía",
+          "type": "Uso de conectores",
+          "question": "",
+          "explanation": "La forma correcta es 'porque' (junto) para explicar una causa.",
+          "position": [92, 98]
+        },
+        {
+          "data": "tecnicas",
+          "category": "Ortografía",
+          "type": "Tilde",
+          "question": "",
+          "explanation": "La palabra correcta es 'técnicas', con tilde en la 'e'.",
+          "position": [107, 115]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "media",
+      "data": "El informe demuestra que los datos recolectados es inconsistente, lo cual afecta la validez de los conclusiones."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "es inconsistente",
+          "category": "Gramática",
+          "type": "Concordancia de número",
+          "question": "",
+          "explanation": "Debe ser 'son inconsistentes' para concordar con 'datos' (plural).",
+          "position": [38, 53]
+        },
+        {
+          "data": "la validez",
+          "category": "Gramática",
+          "type": "Concordancia de género",
+          "question": "",
+          "explanation": "El artículo 'la' no concuerda con 'conclusiones' (plural). Debería ser 'la validez de las conclusiones'.",
+          "position": [66, 76]
+        },
+        {
+          "data": "los conclusiones",
+          "category": "Gramática",
+          "type": "Concordancia de género",
+          "question": "",
+          "explanation": "El artículo correcto es 'las conclusiones' (femenino plural).",
+          "position": [80, 95]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "informal",
+      "verbosity": "baja",
+      "data": "hay muchas personas que no sabe como usar bien la tecnologia, la tecnologia es complicada para ellos."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "sabe",
+          "category": "Gramática",
+          "type": "Concordancia de número",
+          "question": "",
+          "explanation": "Debe ser 'saben' para concordar con 'personas' (plural).",
+          "position": [25, 30]
+        },
+        {
+          "data": "como",
+          "category": "Ortografía",
+          "type": "Uso de conectores",
+          "question": "",
+          "explanation": "En este contexto, la forma correcta es 'cómo' (interrogativo/relativo).",
+          "position": [31, 35]
+        },
+        {
+          "data": "la tecnologia, la tecnologia",
+          "category": "Redacción",
+          "type": "Repetición innecesaria",
+          "question": "",
+          "explanation": "Evita repetir la misma palabra en frases consecutivas. Usa un pronombre o sinónimo.",
+          "position": [52, 78]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "alta",
+      "data": "la teoria propuesta por el investigador es muy relevante, relevante porque cambia el paradigma existente."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "la",
+          "category": "Ortografía",
+          "type": "Mayúsculas y minúsculas",
+          "question": "",
+          "explanation": "La primera palabra de un párrafo debe llevar mayúscula.",
+          "position": [0, 2]
+        },
+        {
+          "data": "teoria",
+          "category": "Ortografía",
+          "type": "Tilde",
+          "question": "",
+          "explanation": "La palabra correcta es 'teoría', con tilde en la 'i'.",
+          "position": [3, 9]
+        },
+        {
+          "data": "relevante, relevante",
+          "category": "Redacción",
+          "type": "Redundancia léxica",
+          "question": "",
+          "explanation": "Repetir 'relevante' es innecesario. Reformula para mayor fluidez.",
+          "position": [45, 65]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "media",
+      "data": "El equipo de trabajo ha demostrado un alto nivel de eficacia, sin embargo los resultados no refleja esto."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "sin embargo",
+          "category": "Puntuación",
+          "type": "Falta de coma",
+          "question": "",
+          "explanation": "Debe ir una coma antes de 'sin embargo' cuando conecta dos oraciones.",
+          "position": [52, 63]
+        },
+        {
+          "data": "refleja",
+          "category": "Gramática",
+          "type": "Concordancia de número",
+          "question": "",
+          "explanation": "Debe ser 'reflejan' para concordar con 'resultados' (plural).",
+          "position": [76, 83]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "alta",
+      "data": "el cambio climático es un fenómeno global que afecta a múltiples ecosistemas. Los científicos han observado que las temperaturas aumentan progresivamente, aumentan debido a la quema de combustibles fósiles. Este aumento de temperaturas provoca sequías prolongadas y eventos meteorológicos extremos.\n\nPor otro lado, la biodiversidad marina también sufre cambios drásticos. Los corales mueren por el calentamiento del agua, pero los corales son esenciales para la vida submarina. A pesar de esto, muchos gobiernos no toman medidas suficientes para mitigar estos efectos, lo cual es contradictorio con los acuerdos internacionales firmados."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "el",
+          "category": "Ortografía",
+          "type": "Mayúsculas y minúsculas",
+          "question": "",
+          "explanation": "La primera letra del párrafo debe ser mayúscula ('El'). En textos académicos, este error sugiere descuido en la revisión formal.",
+          "position": [0, 2]
+        },
+        {
+          "data": "aumentan progresivamente, aumentan debido a",
+          "category": "Redacción",
+          "type": "Redundancia léxica",
+          "question": "¿Es necesario repetir 'aumentan' en la misma oración?",
+          "explanation": "La repetición del verbo 'aumentan' interrumpe la fluidez del texto. Se recomienda reemplazar el segundo uso con un conector causal: '...aumentan progresivamente, **ya que** la quema de combustibles...'.",
+          "position": [93, 132]
+        },
+        {
+          "data": "pero los corales son esenciales",
+          "category": "Coherencia",
+          "type": "Contradicción entre párrafos",
+          "question": "¿El segundo párrafo refuerza o contradice la urgencia del problema?",
+          "explanation": "El uso de 'pero' sugiere un contraste innecesario. Dado que el primer párrafo establece la gravedad del cambio climático, aquí sería más coherente usar 'y' o 'dado que' para enfatizar la consecuencia lógica: '**Dado que** los corales son esenciales...'.",
+          "position": [232, 261]
+        },
+        {
+          "data": "lo cual es contradictorio con",
+          "category": "Estilo",
+          "type": "Uso de voz pasiva",
+          "question": "¿Se podría expresar esta idea con más claridad?",
+          "explanation": "La voz pasiva ('lo cual es contradictorio') diluye la responsabilidad. En un texto académico, es preferible ser directo: '**lo que contradice** los acuerdos internacionales'.",
+          "position": [316, 341]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "media",
+      "data": "La inteligencia artificial (IA) está transformando la industria financiera. Los algoritmos predictivos permiten identificar patrones de fraude con un 95% de precisión. Sin embargo, estos sistemas requieren grandes cantidades de datos sensibles.\n\nPor ejemplo, en el sector agrícola, el uso de drones ha optimizado el riego de cultivos. Esta tecnología no está relacionada con la IA, pero demuestra avances tecnológicos. Volviendo al tema inicial, la IA también plantea desafíos éticos."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "Sin embargo",
+          "category": "Puntuación",
+          "type": "Falta de coma",
+          "question": "",
+          "explanation": "Debe añadirse una coma después de 'Sin embargo' cuando inicia una oración adversativa.",
+          "position": [134, 145]
+        },
+        {
+          "data": "Por ejemplo, en el sector agrícola... no está relacionada con la IA",
+          "category": "Coherencia",
+          "type": "Incoherencia temática",
+          "question": "¿El ejemplo aporta al hilo argumental principal?",
+          "explanation": "El segundo párrafo introduce un tema irrelevante (drones agrícolas) que no contribuye a la discusión sobre IA. Para mantener coherencia, reemplázalo con un ejemplo de IA en finanzas: '**Por ejemplo, bancos como X usan IA para...'**.",
+          "position": [201, 270]
+        },
+        {
+          "data": "Volviendo al tema inicial",
+          "category": "Redacción",
+          "type": "Transición abrupta",
+          "explanation": "La frase 'Volviendo al tema inicial' evidencia una falta de planificación estructural. Elimínala y conecta los párrafos con un hilo lógico: '**Frente a estos beneficios,** la IA también plantea...'.",
+          "position": [271, 295]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "informal",
+      "verbosity": "baja",
+      "data": "las redes sociales son adictivas la gente pasa horas mirando pantallas. esto afecta su salud mental según estudios recientes. pero no todo es malo tambien ayudan a conectar personas.\n\npor otra parte el cambio climático es un problema grave. aunque las redes sociales no tienen nada que ver con esto, es importante mencionarlo."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "las",
+          "category": "Ortografía",
+          "type": "Mayúsculas",
+          "explanation": "Falta mayúscula inicial ('Las').",
+          "position": [0, 3]
+        },
+        {
+          "data": "adictivas la gente",
+          "category": "Puntuación",
+          "type": "Falta de signos",
+          "explanation": "Debe haber un punto o coma después de 'adictivas' para separar oraciones.",
+          "position": [19, 35]
+        },
+        {
+          "data": "estudios recientes",
+          "category": "Ortografía",
+          "type": "Error léxico",
+          "explanation": "La palabra correcta es 'recientes'.",
+          "position": [92, 109]
+        },
+        {
+          "data": "tambien",
+          "category": "Ortografía",
+          "type": "Tilde",
+          "explanation": "Debe escribirse 'también'.",
+          "position": [137, 145]
+        },
+        {
+          "data": "por otra parte el cambio climático... aunque las redes sociales no tienen nada que ver",
+          "category": "Coherencia",
+          "type": "Salto temático",
+          "explanation": "El segundo párrafo introduce un tema completamente distinto sin justificación. Elimínalo o vincula ambos párrafos con una transición válida: '**Hablando de impactos globales,** las redes sociales...'.",
+          "position": [148, 250]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "alta",
+      "data": "La teoría de la relatividad general, formulada por Albert Einstein, revolucionó la física moderna. Esta teoría explica cómo la gravedad afecta la curvatura del espacio-tiempo. La gravedad, según Einstein, no es una fuerza tradicional, sino una manifestación de la geometría del universo.\n\nCabe destacar que, aunque la teoría de la relatividad general es fundamental, la teoría de la relatividad general no puede explicar fenómenos cuánticos a escalas subatómicas. Esto limita su aplicabilidad en ciertos contextos científicos."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "la teoría de la relatividad general, la teoría de la relatividad general",
+          "category": "Redacción",
+          "type": "Repetición innecesaria",
+          "question": "¿Cómo evitar la redundancia en términos técnicos?",
+          "explanation": "Repetir el nombre completo de la teoría ('la teoría de la relatividad general') en un contexto académico demuestra pobreza léxica. Reemplaza la segunda instancia con un pronombre o sinónimo: '**esta teoría** no puede explicar...' o '**el marco einsteiniano** no puede...'.",
+          "position": [210, 290]
+        },
+        {
+          "data": "Cabe destacar que, aunque",
+          "category": "Estilo",
+          "type": "Uso de frases vacías",
+          "explanation": "La frase 'Cabe destacar que' no aporta información sustancial. En textos académicos, es preferible ser conciso: '**Aunque** la teoría de la relatividad...'.",
+          "position": [191, 215]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "alta",
+      "data": "Estimado Javier,\n\nLamento informarle que el proyecto del cliente XYZ se ha retrasado debido a problemas técnicos en el desarrollo del módulo de facturación. Los problemas técnicos surgieron por falta de claridad en los requisitos iniciales. El equipo está trabajando en solucionar estos problemas técnicos, pero necesitamos extender la fecha de entrega.\n\nPor otro lado, el presupuesto sigue siendo el mismo a pesar de estos inconvenientes. Esto podría afectar la calidad del producto final. ¿Podríamos revisar esto en la reunión del próximo lunes?\n\nSaludos cordiales,\nMaría"
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "problemas técnicos, problemas técnicos, problemas técnicos",
+          "category": "Redacción",
+          "type": "Redundancia léxica",
+          "question": "¿Cómo evitar repetir la misma frase técnicamente?",
+          "explanation": "La repetición de 'problemas técnicos' (3 veces en dos párrafos) resta profesionalismo. Alternativas: '**dichos inconvenientes**', '**estas dificultades**' o '**los errores detectados**'.",
+          "position": [80, 180]
+        },
+        {
+          "data": "Por otro lado, el presupuesto sigue siendo el mismo",
+          "category": "Coherencia",
+          "type": "Transición inadecuada",
+          "explanation": "'Por otro lado' sugiere un tema paralelo, cuando en realidad es una consecuencia directa del retraso. Mejor usar: '**Como consecuencia,** el presupuesto no se ha ajustado...'.",
+          "position": [190, 240]
+        },
+        {
+          "data": "Esto podría afectar la calidad",
+          "category": "Estilo",
+          "type": "Ambiguidad",
+          "explanation": "'Esto' es ambiguo. Especifique: '**La falta de ajuste presupuestario** podría afectar...' para claridad.",
+          "position": [250, 280]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "media",
+      "data": "El proyecto de implementación del ERP presenta un avance del 65%. Los módulos de inventario y ventas ya están operativos, pero el módulo de contabilidad aún tiene errores críticos. Estos errores críticos impiden la integración con el sistema bancario.\n\nCabe mencionar que el equipo de desarrollo no cuenta con recursos suficientes para resolver estos errores críticos. A pesar de esto, el gerente insiste en mantener la fecha límite original. Esta decisión podría generar sobrecostos no previstos."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "errores críticos, errores críticos, errores críticos",
+          "category": "Redacción",
+          "type": "Repetición innecesaria",
+          "explanation": "Repetir 'errores críticos' cansa al lector. Reemplace con: '**estas fallas**', '**dichas incidencias**' o '**los bugs identificados**'.",
+          "position": [120, 220]
+        },
+        {
+          "data": "Cabe mencionar que",
+          "category": "Estilo",
+          "type": "Frase redundante",
+          "explanation": "Elimine frases vacías. Directo: '**El equipo de desarrollo no cuenta...**'.",
+          "position": [230, 250]
+        },
+        {
+          "data": "A pesar de esto",
+          "category": "Coherencia",
+          "type": "Falta de causa-efecto",
+          "explanation": "Conecte mejor la idea: '**Pese a esta limitación,** el gerente insiste...' para enfatizar el contraste.",
+          "position": [290, 305]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "alta",
+      "data": "Es importante señalar que en el desarrollo del marco teórico se utilizó diversas fuentes bibliográficas. El autor principal, cuyo trabajo es fundamental, es muy reconocido en su campo. Esta investigación, cuyo objetivo principal es determinar la correlación entre variables, demuestra un enfoque riguroso."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "se utilizó diversas fuentes",
+          "category": "Gramática",
+          "type": "Concordancia de número",
+          "question": "¿El verbo concuerda con el sujeto?",
+          "explanation": "El verbo 'utilizó' (singular) no concuerda con el sujeto 'diversas fuentes' (plural). Debe escribirse 'se utilizaron diversas fuentes' para mantener la concordancia gramatical.",
+          "position": [45, 71]
+        },
+        {
+          "data": "cuyo objetivo principal es determinar",
+          "category": "Estilo",
+          "type": "Uso excesivo de subordinadas",
+          "question": "¿Hay demasiadas oraciones subordinadas con 'cuyo' en este párrafo?",
+          "explanation": "El uso repetido de construcciones con 'cuyo' (dos veces en párrafo corto) afecta la fluidez del texto académico. Considere reformular una de ellas: 'Esta investigación tiene como objetivo principal determinar...'",
+          "position": [131, 164]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "media",
+      "data": "Adjunto envío el informe solicitado a travéz del correo del día 15 de septiembre. En dicho informe, se expone los resultados preliminares de la primera fase del proyecto. Espero que está información sea de utilidad para la toma de decisiones."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "a travéz",
+          "category": "Ortografía",
+          "type": "Grafía incorrecta",
+          "question": "",
+          "explanation": "La palabra correcta es 'a través', con 's' final en lugar de 'z'.",
+          "position": [33, 41]
+        },
+        {
+          "data": "se expone",
+          "category": "Gramática",
+          "type": "Concordancia de número",
+          "question": "",
+          "explanation": "El verbo debe concordar con el sujeto plural: 'se exponen los resultados' en lugar de 'se expone los resultados'.",
+          "position": [76, 85]
+        },
+        {
+          "data": "está información",
+          "category": "Ortografía",
+          "type": "Confusión tilde diacrítica",
+          "question": "¿Diferencia entre 'está' (verbo) y 'esta' (demostrativo)?",
+          "explanation": "En este contexto, 'esta' funciona como adjetivo demostrativo y no lleva tilde, a diferencia del verbo 'está'.",
+          "position": [140, 155]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "alta",
+      "data": "La investigación demuestra que el calentaminto global sigue aumentando. Sin embargo los estudios realizados en la última década, muestran discrepancias significativas en cuanto a sus efectos. A pesar de que los efectos del calentamiento global son ampliamente estudiados, persiste cierta incertidumbre acerca de su alcance real."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "calentaminto",
+          "category": "Ortografía",
+          "type": "Error tipográfico",
+          "question": "",
+          "explanation": "La palabra correcta es 'calentamiento'. Este tipo de error tipográfico reduce la credibilidad en textos académicos.",
+          "position": [28, 40]
+        },
+        {
+          "data": "Sin embargo los estudios",
+          "category": "Puntuación",
+          "type": "Ausencia de coma",
+          "question": "",
+          "explanation": "Después de 'Sin embargo' debe ir una coma para separar correctamente el conector adversativo del resto de la oración.",
+          "position": [61, 82]
+        },
+        {
+          "data": "década, muestran",
+          "category": "Puntuación",
+          "type": "Coma incorrecta",
+          "question": "",
+          "explanation": "La coma entre 'década' y 'muestran' es incorrecta porque separa innecesariamente el sujeto del predicado.",
+          "position": [100, 110]
+        },
+        {
+          "data": "los efectos del calentamiento global son ampliamente estudiados",
+          "category": "Redacción",
+          "type": "Redundancia conceptual",
+          "question": "¿Es necesario repetir la idea de 'efectos' si ya se mencionó en la oración anterior?",
+          "explanation": "Hay redundancia al repetir 'efectos del calentamiento global' tan cerca de la mención previa. Se podría reformular como 'A pesar de la amplia investigación sobre este fenómeno...'",
+          "position": [124, 176]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "baja",
+      "data": "El analisis de los datos del ultimo trimestre revelan un incremento del 4.5% en las ventas. Sin embargo, a resultado necesario implementar nuevas estrategias para poder hacer frente a la competencia."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "analisis",
+          "category": "Ortografía",
+          "type": "Ausencia de tilde",
+          "question": "",
+          "explanation": "La palabra correcta es 'análisis', con tilde en la primera 'a'.",
+          "position": [3, 11]
+        },
+        {
+          "data": "ultimo",
+          "category": "Ortografía",
+          "type": "Ausencia de tilde",
+          "question": "",
+          "explanation": "La palabra correcta es 'último', con tilde en la 'u'.",
+          "position": [25, 31]
+        },
+        {
+          "data": "revelan",
+          "category": "Gramática",
+          "type": "Concordancia verbal",
+          "question": "¿El verbo concuerda con el sujeto?",
+          "explanation": "El sujeto es singular ('El análisis'), por lo que el verbo debe ser 'revela' en lugar de 'revelan'.",
+          "position": [42, 49]
+        },
+        {
+          "data": "a resultado",
+          "category": "Ortografía",
+          "type": "Confusión homófona",
+          "question": "",
+          "explanation": "La expresión correcta es 'ha resultado' (verbo haber conjugado + participio), no 'a resultado'.",
+          "position": [87, 98]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "media",
+      "data": "En conclusión, podemos afirmar que la hipótesis inicial queda parcialmente comprobada. Los resultados demuestran una correlación significativa entre las variables estudiadas, no obstante no se puede establecer una relación causal. Esto nos lleva a considerar que se requiere mas investigación cuantitativa para poder validar completamente la hipotesis."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "no obstante no se puede",
+          "category": "Puntuación",
+          "type": "Ausencia de coma",
+          "question": "",
+          "explanation": "Después del conector 'no obstante' debe ir una coma: 'no obstante, no se puede'. Esto mejora la legibilidad y respeta las normas de puntuación en textos académicos.",
+          "position": [150, 172]
+        },
+        {
+          "data": "mas",
+          "category": "Ortografía",
+          "type": "Tilde diacrítica",
+          "question": "¿Cuándo 'mas' lleva tilde?",
+          "explanation": "En este contexto, 'más' es un adverbio de cantidad y debe llevar tilde para distinguirlo de la conjunción adversativa 'mas' (equivalente a 'pero').",
+          "position": [233, 236]
+        },
+        {
+          "data": "hipotesis",
+          "category": "Ortografía",
+          "type": "Ausencia de tilde",
+          "question": "",
+          "explanation": "La palabra correcta es 'hipótesis', con tilde en la 'o'. Los términos científicos deben escribirse con precisión en textos académicos.",
+          "position": [287, 296]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "alta",
+      "data": "Mediante la presente tengo a bien dirigirme a Ustedes para hacerles llegar nuestro plan de desarrollo para el próximo ejercicio fiscal. Dicho plan está compuesto por tres líneas estratégicas prioritarias a saber la digitalización de procesos internos, la ampliación de la cartera de productos y el fortalecimiento de las politicas de sostenibilidad. Con la implementación de este plan, creemos que nuestra empresa alcanzará los objetivos como lo son el aumento de la rentabilidad y la mejora de nuestra imagen corporativa."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "prioritarias a saber",
+          "category": "Puntuación",
+          "type": "Ausencia de dos puntos",
+          "question": "",
+          "explanation": "La expresión 'a saber' debe ir seguida de dos puntos, no de un espacio: 'prioritarias a saber: la digitalización...'",
+          "position": [170, 188]
+        },
+        {
+          "data": "politicas",
+          "category": "Ortografía",
+          "type": "Ausencia de tilde",
+          "question": "",
+          "explanation": "La palabra correcta es 'políticas', con tilde en la 'i'.",
+          "position": [275, 284]
+        },
+        {
+          "data": "los objetivos como lo son",
+          "category": "Redacción",
+          "type": "Expresión innecesariamente compleja",
+          "question": "¿Es posible expresar esto de forma más directa?",
+          "explanation": "La construcción 'como lo son' es redundante en un documento formal. Se puede simplificar: 'alcanzará objetivos clave: el aumento de la rentabilidad y la mejora de...'",
+          "position": [332, 354]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "alta",
+      "data": "El método de análisis factorial exploratorio fue utilizado para identificar los constructos subyacentes en el instrumento de medición. Los resultados de este método, nos indican que existen 5 factores principales que explican el 78% de la varianza. Un análisis más profundo demuestra que el que tiene mayor peso es el factor relacionado con la percepción del usuario respecto a la usabilidad del sistema, este factor es determinante para comprender el fenómeno estudiado."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "resultados de este método, nos indican",
+          "category": "Puntuación",
+          "type": "Coma incorrecta",
+          "question": "",
+          "explanation": "No debe colocarse coma entre el sujeto y el predicado. Lo correcto es: 'Los resultados de este método nos indican'.",
+          "position": [132, 162]
+        },
+        {
+          "data": "existen 5 factores",
+          "category": "Estilo",
+          "type": "Uso de números",
+          "question": "",
+          "explanation": "En textos académicos, los números del uno al nueve deben escribirse con letras. Lo correcto es 'existen cinco factores'.",
+          "position": [172, 187]
+        },
+        {
+          "data": "usabilidad del sistema, este factor",
+          "category": "Puntuación",
+          "type": "Puntuación insuficiente",
+          "question": "¿Es adecuada una coma para separar estas ideas?",
+          "explanation": "Se necesita un punto y seguido o punto y coma para separar estas oraciones, ya que son ideas completas. La coma produce un error conocido como 'coma ilativa'.",
+          "position": [327, 348]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "media",
+      "data": "A continuación se detallan los puntos acordados en la reunión del comité directivo que tuvo lugar el 12 de enero del presente año. Primeramente, se aprobó el presupuesto anual con un incremento del 3% respecto al año anterior. En segundo lugar la propuesta de expansión internacional fue pospuesta hasta el próximo trimestre debido que no se contaba con toda la información necesaria."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "En segundo lugar la propuesta",
+          "category": "Puntuación",
+          "type": "Ausencia de coma",
+          "question": "",
+          "explanation": "Después de un ordenador del discurso como 'En segundo lugar' debe ir una coma: 'En segundo lugar, la propuesta...'",
+          "position": [178, 204]
+        },
+        {
+          "data": "debido que",
+          "category": "Redacción",
+          "type": "Preposición omitida",
+          "question": "",
+          "explanation": "La expresión correcta es 'debido a que'. Falta la preposición 'a' que es obligatoria en esta locución conjuntiva.",
+          "position": [272, 282]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "alta",
+      "data": "El fenómeno de la globalización a transformado radicalmente las dinámicas económicas internacionales durante las últimas décadas. Diversos autores han analizado sus implicaciones, entre ellos destacan Friedman (2005), Stiglitz (2012), y Sen (2011). Estos autores, aunque difieren en algunos aspectos, concuerdan en que la globalización ha generado tanto beneficios como perjuicios para los distintos países, dependiendo de su posición en la jerarquía económica mundial."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "a transformado",
+          "category": "Ortografía",
+          "type": "Confusión homófona",
+          "question": "¿Se usa la forma correcta del verbo haber?",
+          "explanation": "Se debe usar 'ha transformado' (verbo haber conjugado + participio) en lugar de 'a transformado'. Este error es grave en un texto académico.",
+          "position": [25, 38]
+        },
+        {
+          "data": "Stiglitz (2012), y Sen",
+          "category": "Puntuación",
+          "type": "Coma innecesaria",
+          "question": "",
+          "explanation": "En una enumeración simple no se debe colocar coma antes de la conjunción 'y'. Lo correcto es: 'Stiglitz (2012) y Sen (2011)'.",
+          "position": [124, 138]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "baja",
+      "data": "Según los datos recopilados por el departamento comercial se observa un decremento en las ventas del 12%. Los productos más afectados han sido aquellos dirijidos al segmento juvenil. Por lo tanto urge revisar la estrategia de marketing aplicada en este sector."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "departamento comercial se observa",
+          "category": "Puntuación",
+          "type": "Ausencia de coma",
+          "question": "",
+          "explanation": "Se necesita una coma después de 'departamento comercial' para separar el complemento circunstancial del resto de la oración: 'departamento comercial, se observa'.",
+          "position": [38, 65]
+        },
+        {
+          "data": "dirijidos",
+          "category": "Ortografía",
+          "type": "Error ortográfico",
+          "question": "",
+          "explanation": "La palabra correcta es 'dirigidos', con 'g' en lugar de 'j'.",
+          "position": [133, 142]
+        },
+        {
+          "data": "Por lo tanto urge",
+          "category": "Puntuación",
+          "type": "Ausencia de coma",
+          "question": "",
+          "explanation": "Después de 'Por lo tanto' debe ir una coma: 'Por lo tanto, urge revisar...'",
+          "position": [169, 183]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "media",
+      "data": "La mutación genética estudiada presenta una frecuencia del 0.03% en la población general. No obstante su incidencia aumenta hasta un 1.2% en poblaciones aisladas geográficamente. Esta diferencia significativa sugiere la existencia de un efecto fundador el cual ha sido documentado en estudios similares realizados en otras comunidades aisladas."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "No obstante su incidencia",
+          "category": "Puntuación",
+          "type": "Ausencia de coma",
+          "question": "",
+          "explanation": "Después del conector 'No obstante' debe ir una coma: 'No obstante, su incidencia...'",
+          "position": [83, 106]
+        },
+        {
+          "data": "un efecto fundador el cual",
+          "category": "Redacción",
+          "type": "Expresión mejorable",
+          "question": "¿Es 'el cual' la mejor opción para introducir esta subordinada?",
+          "explanation": "La construcción 'el cual' resulta innecesariamente formal. Se puede simplificar usando 'que': 'un efecto fundador que ha sido documentado...'",
+          "position": [175, 198]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "alta",
+      "data": "El informe presentado por el equipo técnico adolece de ciertas carencias metodológicas que deberían ser subsanadas antes de la presentación final. En primer lugar el apartado de metodología carece de detalles sobre el proceso de selección de la muestra. Asi mismo la sección de resultados presenta datos sin un adecuado contraste estadístico, lo cual dificulta la validación de las conclusiones obtenidas por los investigadores del proyecto en cuestion."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "En primer lugar el apartado",
+          "category": "Puntuación",
+          "type": "Ausencia de coma",
+          "question": "",
+          "explanation": "Después del marcador discursivo 'En primer lugar' debe ir una coma: 'En primer lugar, el apartado...'",
+          "position": [135, 159]
+        },
+        {
+          "data": "Asi mismo",
+          "category": "Ortografía",
+          "type": "Ausencia de tilde",
+          "question": "",
+          "explanation": "La palabra correcta es 'Asimismo' (escrita junta y con tilde en la primera 'i') o 'Así mismo' (separada y con tilde en la 'i').",
+          "position": [234, 242]
+        },
+        {
+          "data": "en cuestion",
+          "category": "Ortografía",
+          "type": "Ausencia de tilde",
+          "question": "",
+          "explanation": "La palabra correcta es 'cuestión', con tilde en la 'o'.",
+          "position": [411, 422]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "alta",
+      "data": "Los resultados del experimento demuestran que el tratamiento A presenta una eficacia del 87%, mientras que el tratamiento B alcanza tan solo un 43%. Estos datos contradicen lo expuesto por Thompson et. al. (2019), quienes afirmaban que ambos tratamientos mostraban resultados equiparables. Es menester señalar que nuestro experimento utilizó una muestra más amplia, lo cual podría explicar la discrepancia con los estudios previos."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "et. al.",
+          "category": "Formato académico",
+          "type": "Abreviatura incorrecta",
+          "question": "",
+          "explanation": "La abreviatura correcta es 'et al.' (sin punto después de 'et'). Esta abreviatura latina significa 'y otros' y es crucial escribirla correctamente en textos académicos.",
+          "position": [175, 182]
+        },
+        {
+          "data": "Es menester señalar",
+          "category": "Estilo",
+          "type": "Expresión arcaica",
+          "question": "¿Es necesario usar una expresión tan formal?",
+          "explanation": "La expresión 'Es menester señalar' resulta arcaica incluso para un texto académico. Alternativas más actuales: 'Es importante destacar' o 'Cabe señalar'.",
+          "position": [249, 267]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "media",
+      "data": "Le recordamos que el plazo para la presentación de la documentación expira el proximo viernes 15 de mayo. Una vez transcurrido dicho plazo, no será posible aceptar nuevas solicitudes bajo ningún concepto. Le recomendamos encarecidamente que revise minuciosamente todos los documentos requeridos con el fin de evitar rechazos por errores subsanables."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "proximo",
+          "category": "Ortografía",
+          "type": "Ausencia de tilde",
+          "question": "",
+          "explanation": "La palabra correcta es 'próximo', con tilde en la 'o'.",
+          "position": [71, 78]
+        },
+        {
+          "data": "bajo ningún concepto",
+          "category": "Estilo",
+          "type": "Expresión demasiado tajante",
+          "question": "¿Es posible moderar el tono para mantener la formalidad sin resultar inflexible?",
+          "explanation": "La expresión 'bajo ningún concepto' puede resultar excesivamente tajante en una comunicación formal. Alternativas más diplomáticas: 'salvo circunstancias excepcionales' o 'salvo casos debidamente justificados'.",
+          "position": [175, 195]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "alta",
+      "data": "Los resultados iniciales evidencian una significativa correlación entre el nivel socioeconómico y el acceso a servicios digitales (r=0.76, p<0.001). Sin embargo, cuando se introduce la variable edad como moderadora, la significancia estadística disminuye considerablemente (p=0.68). Esta interacción entre variables sugiere que las políticas públicas destinadas a reducir la brecha digital debería considerar ambos factores de manera integral y no únicamente centrarse en aspectos económicos como tradicionalmente se ha venido haciendo en los últimos años."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "la significancia estadística disminuye",
+          "category": "Terminología",
+          "type": "Uso impreciso de términos estadísticos",
+          "question": "¿Es 'significancia estadística' el término más preciso?",
+          "explanation": "El término correcto es 'significación estadística'. Además, la significación no 'disminuye' a p=0.68, sino que deja de ser significativa (p>0.05). Una redacción más precisa sería: 'la relación deja de ser estadísticamente significativa (p=0.68)'.",
+          "position": [182, 212]
+        },
+        {
+          "data": "debería considerar",
+          "category": "Gramática",
+          "type": "Concordancia de número",
+          "question": "",
+          "explanation": "El sujeto es 'las políticas públicas' (plural), por lo que el verbo debe ir en plural: 'deberían considerar'.",
+          "position": [293, 311]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "baja",
+      "data": "En base a lo discutido en la reunión del comité ejecutivo, se ha decidido proceder con la reestructuración departamental a partir del próximo mes. Los empleados afectados serán notificados con la debida antelación."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "En base a",
+          "category": "Redacción",
+          "type": "Expresión incorrecta",
+          "question": "",
+          "explanation": "La locución 'En base a' no es correcta en español formal. Las alternativas adecuadas son: 'Con base en', 'Sobre la base de' o 'Basándose en'.",
+          "position": [0, 9]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "media",
+      "data": "El análisis de regresión multivariante revela que las variables independientes explican un 68.4% de la varianza (R²=0.684). Entre dichas variables, el factor más determinante resulta ser el nivel educativo (β=0.45, p<0.01), seguido por el ingreso familiar (β=0.38, p<0.01). De éste modo, podemos inferir que ambos factores son cruciales para comprender el fenómeno estudiado."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "De éste modo",
+          "category": "Ortografía",
+          "type": "Tilde incorrecta",
+          "question": "",
+          "explanation": "El demostrativo 'este' no lleva tilde cuando funciona como adjetivo o determinante. Lo correcto es 'De este modo'.",
+          "position": [229, 240]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "alta",
+      "data": "La implementación del nuevo sistema de gestión documental ha permitido optimizar los procesos administrativos de la empresa. Los tiempos de respuesta se han reducido en un 45%, al mismo tiempo que hemos logrado un ahorro significativo en el consumo de papel. No obstante lo anterior, es preciso señalar que algunos departamentos aún presentan resistencia al cambio lo que ha dificultado la plena adopción del sistema. Por otra parte la satisfacción de los clientes ha mejorado considerablemente según los resultados de la última encuesta realizada."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "No obstante lo anterior,",
+          "category": "Redacción",
+          "type": "Expresión redundante",
+          "question": "",
+          "explanation": "La expresión 'lo anterior' después de 'No obstante' resulta redundante. Bastaría con escribir 'No obstante,' o 'Sin embargo,'.",
+          "position": [229, 252]
+        },
+        {
+          "data": "resistencia al cambio lo que ha",
+          "category": "Puntuación",
+          "type": "Ausencia de coma",
+          "question": "",
+          "explanation": "Falta una coma antes de 'lo que': 'resistencia al cambio, lo que ha...' para separar correctamente la oración subordinada.",
+          "position": [294, 319]
+        },
+        {
+          "data": "Por otra parte la satisfacción",
+          "category": "Puntuación",
+          "type": "Ausencia de coma",
+          "question": "",
+          "explanation": "Después del conector 'Por otra parte' debe ir una coma: 'Por otra parte, la satisfacción...'",
+          "position": [356, 382]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "alta",
+      "data": "A pesar de que los datos obtenidos en la segunda fase del estudio parecen respaldar la hipótesis inicial, no se puede concluir con total certeza que dicha relación sea causal debido a que el diseño metodológico empleado carece de controles adecuados. Es decir, existen múltiples factores externos no contemplados que podrían haber influenciado los resultados sin que esto se haya registrado de manera sistemática. Además, se observaron variaciones significativas entre las muestras de los distintos grupos, lo cual podría haber sesgado los resultados aunque se intentó homogeneizar las condiciones experimentales en la medida de lo posible."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "dicha relación sea causal debido a que",
+          "category": "Estilo",
+          "type": "Construcción innecesariamente enrevesada",
+          "question": "¿Podrías expresar esta idea con mayor claridad y precisión?",
+          "explanation": "La construcción 'dicha relación sea causal debido a que' resulta redundante y poco elegante. Puede mejorarse con: 'no se puede afirmar una relación causal, ya que...'.",
+          "position": [139, 180]
+        },
+        {
+          "data": "aunque se intentó homogeneizar las condiciones experimentales en la medida de lo posible.",
+          "category": "Precisión conceptual",
+          "type": "Ambigüedad",
+          "question": "¿Qué significa exactamente 'en la medida de lo posible'? ¿Podría cuantificarse o especificarse más?",
+          "explanation": "La expresión 'en la medida de lo posible' es vaga para un contexto académico. Ser más preciso en la descripción metodológica aumenta la credibilidad del estudio.",
+          "position": [334, 410]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "media",
+      "data": "Por motivos de mantenimiento, la plataforma digital no estará disponible entre el 10 y el 12 de mayo. Rogamos a todos los usuarios que realicen sus gestiones con suficiente antelación para evitar inconvenientes. Agradecemos su comprensión y pedimos disculpas por cualquier molestia causada, las cuales procuraremos minimizar en lo posible."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "molestia causada, las cuales",
+          "category": "Gramática",
+          "type": "Discordancia de género y número",
+          "question": "",
+          "explanation": "Se genera una incongruencia gramatical al referirse a 'molestia' (singular, femenino) con 'las cuales' (plural, femenino). Lo correcto sería 'por la molestia causada, la cual procuraremos minimizar...'.",
+          "position": [221, 255]
+        },
+        {
+          "data": "minimizar en lo posible",
+          "category": "Estilo",
+          "type": "Vaguedad",
+          "question": "¿Qué significa exactamente 'en lo posible'? ¿Podría especificarse el esfuerzo o alcance?",
+          "explanation": "La frase 'en lo posible' es ambigua y puede debilitar la claridad del mensaje. Puede sustituirse por: 'en la mayor medida posible' o 'en la medida en que los recursos lo permitan'.",
+          "position": [256, 278]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "media",
+      "data": "Se llevó a cabo una revisión bibliográfica exhaustiva en la que se incluyeron artículos de los últimos diez años, sin embargo, la mayoría de los estudios encontrados no cumplían con los criterios de inclusión previamente establecidos. Esto limitó la cantidad de información relevante disponible, aunque permitió identificar patrones comunes en la literatura reciente."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "sin embargo,",
+          "category": "Puntuación",
+          "type": "Falta de punto y coma o punto antes del conector",
+          "question": "",
+          "explanation": "El conector 'sin embargo' debe ir precedido de un punto o punto y coma para separar adecuadamente las oraciones. Ejemplo: '...diez años; sin embargo, la mayoría...'.",
+          "position": [120, 133]
+        },
+        {
+          "data": "aunque permitió identificar",
+          "category": "Coherencia",
+          "type": "Contradicción con la oración anterior",
+          "question": "¿No contradice esta afirmación la idea de que la información fue limitada?",
+          "explanation": "La conjunción 'aunque' introduce una contradicción con la frase anterior, pero no queda claro si se trata de una concesión real. Puede aclararse el contraste con: 'No obstante, se logró identificar...'.",
+          "position": [208, 235]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "alta",
+      "data": "La noción de desarrollo sostenible ha sido ampliamente debatida en la literatura académica, sin embargo su aplicación práctica sigue siendo ambigua y, en muchos casos contradictoria. Diversos autores han argumentado que dicha ambigüedad no solo obstruye la implementación de políticas públicas efectivas, sino que además genera confusión conceptual, conceptual que impide una evaluación adecuada de los resultados obtenidos en el marco de tales políticas."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "sin embargo su",
+          "category": "Puntuación",
+          "type": "Falta de coma después del conector",
+          "question": "",
+          "explanation": "El conector 'sin embargo' debe ir seguido de una coma cuando se utiliza dentro de una oración: '...académica, sin embargo, su aplicación...'.",
+          "position": [89, 107]
+        },
+        {
+          "data": "en muchos casos contradictoria",
+          "category": "Puntuación",
+          "type": "Falta de coma",
+          "question": "",
+          "explanation": "Se requiere una coma después de 'casos' para separar correctamente los incisos. Además, el término 'contradictoria' no concuerda bien con el sujeto 'aplicación práctica'.",
+          "position": [108, 144]
+        },
+        {
+          "data": "confusión conceptual, conceptual que impide",
+          "category": "Repetición innecesaria",
+          "type": "Redundancia léxica",
+          "question": "¿Podrías reformular la frase eliminando la repetición de 'conceptual'?",
+          "explanation": "La repetición de 'conceptual' es innecesaria y genera una lectura torpe. Una mejor opción sería: 'confusión conceptual que impide...'.",
+          "position": [216, 256]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "media",
+      "data": "El presente comunicado tiene como finalidad informar que el sistema de atención al cliente sufrirá cambios. Dichos cambios estarán vigentes desde el lunes 15, por lo que se solicita a los usuarios mantenerse atentos, además recomendamos revisar sus bandejas de entrada para mayor información. Agradecemos su cooperación en estos momentos tan importantes, de importancia para todos."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "además recomendamos",
+          "category": "Conectores",
+          "type": "Falta de separación entre ideas",
+          "question": "",
+          "explanation": "El conector 'además' debe introducir una nueva oración o ir precedido de un punto y coma. Puede mejorarse con: '...mantenerse atentos. Además, recomendamos...'.",
+          "position": [172, 192]
+        },
+        {
+          "data": "para mayor información",
+          "category": "Estilo",
+          "type": "Uso de fórmula poco precisa",
+          "question": "¿Podrías especificar mejor a qué tipo de información se refiere?",
+          "explanation": "La frase 'para mayor información' es común pero vaga. Ser más concreto (por ejemplo, 'para conocer los nuevos horarios') mejora la claridad.",
+          "position": [224, 247]
+        },
+        {
+          "data": "tan importantes, de importancia",
+          "category": "Redundancia semántica",
+          "type": "Repetición innecesaria de ideas",
+          "question": "",
+          "explanation": "La expresión 'momentos tan importantes, de importancia' repite la misma idea. Puede reemplazarse por: 'momentos cruciales para todos'.",
+          "position": [264, 305]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "media",
+      "data": "Los experimentos realizados no arrojaron datos concluyentes, sin embargo es posible inferir ciertas tendencias si se consideran los resultados de estudios similares. En este sentido, puede observarse una leve mejora en los indicadores de desempeño, aunque dicha mejora no sea estadísticamente significativa ni replicable según los criterios del marco experimental establecido por las normativas internacionales ISO-9001, que aunque relevantes no son las únicas a considerar."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "sin embargo es posible inferir",
+          "category": "Puntuación",
+          "type": "Falta de coma tras conector",
+          "question": "",
+          "explanation": "Después de 'sin embargo' debe colocarse una coma. Ejemplo: '...concluyentes; sin embargo, es posible...'.",
+          "position": [51, 82]
+        },
+        {
+          "data": "aunque dicha mejora no sea estadísticamente significativa ni replicable",
+          "category": "Incoherencia lógica",
+          "type": "Contradicción implícita",
+          "question": "¿No contradice esta afirmación la idea de que se infiere una tendencia?",
+          "explanation": "Se presenta una contradicción entre 'tendencias' y la afirmación de que los datos no son estadísticamente significativos. Puede mejorarse con una expresión condicional o de mayor prudencia.",
+          "position": [147, 216]
+        },
+        {
+          "data": "que aunque relevantes no son las únicas a considerar",
+          "category": "Gramática y estilo",
+          "type": "Construcción confusa",
+          "question": "¿Podrías reestructurar esta frase para mayor claridad?",
+          "explanation": "La oración subordinada está mal estructurada y puede resultar ambigua. Una opción más clara sería: 'las cuales, aunque relevantes, no constituyen el único referente a considerar'.",
+          "position": [273, 324]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "media",
+      "data": "La dirección informa que el evento se desarrollará el próximo miércoles en el auditorio principal. Se recomienda a los asistentes llegar con anticipación suficiente para garantizar una ubicación adecuada. A su vez, es importante que los participantes traigan consigo sus documentos de identificación, dado que, por motivos de seguridad, estos serán solicitados a la entrada."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "A su vez",
+          "category": "Conectores",
+          "type": "Conector innecesario o poco preciso",
+          "question": "¿Podrías considerar reemplazar 'A su vez' por un conector más adecuado como 'Asimismo' o simplemente omitirlo?",
+          "explanation": "El conector 'A su vez' suele indicar una alternancia o sucesión, lo cual no aplica aquí. 'Asimismo' o una construcción directa sería más apropiada.",
+          "position": [162, 170]
+        },
+        {
+          "data": "dado que, por motivos de seguridad,",
+          "category": "Estilo",
+          "type": "Uso excesivo de incisos",
+          "question": "",
+          "explanation": "Los incisos pueden dificultar la fluidez en un texto formal. En este caso, se sugiere: 'dado que estos serán solicitados por motivos de seguridad'.",
+          "position": [205, 240]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "baja",
+      "data": "Se informa que las actividades académicas se reanudarán el día lunes. Cualquier cambio en la programación será comunicado por los medios oficiales. Por favor, permanecer atentos a los comunicados."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "permanecer atentos",
+          "category": "Gramática",
+          "type": "Concordancia verbal con modo imperativo",
+          "question": "¿Podrías revisar la concordancia verbal con el modo imperativo?",
+          "explanation": "La forma correcta en este contexto sería 'permanezcan atentos', ya que se está dando una instrucción directa a un grupo.",
+          "position": [174, 193]
+        },
+        {
+          "data": "Por favor,",
+          "category": "Estilo",
+          "type": "Tono informal sutil",
+          "question": "¿Deseas mantener el tono más cortés o más directo?",
+          "explanation": "En comunicaciones formales, 'por favor' puede resultar redundante si ya se utiliza un tono cortés y directo. Podría omitirse para mayor concisión.",
+          "position": [162, 172]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "alta",
+      "data": "En el contexto de los recientes ajustes institucionales, se ha estimado pertinente implementar una revisión exhaustiva de los procesos administrativos. Esta decisión no solo responde a la necesidad de optimizar recursos, sino también al compromiso constante con la calidad. Cabe destacar, sin embargo, que estas acciones no pretenden sustituir los procedimientos existentes sino complementarlos de manera gradual y progresiva."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "Cabe destacar, sin embargo, que",
+          "category": "Conectores",
+          "type": "Redundancia funcional",
+          "question": "¿Es necesario emplear ambos conectores en esta oración?",
+          "explanation": "‘Cabe destacar’ y ‘sin embargo’ introducen matices diferentes, pero su uso conjunto puede resultar redundante o confuso. Se sugiere elegir solo uno.",
+          "position": [222, 251]
+        },
+        {
+          "data": "de manera gradual y progresiva",
+          "category": "Redundancia semántica",
+          "type": "Sinónimos innecesarios",
+          "question": "",
+          "explanation": "‘Gradual’ y ‘progresiva’ son sinónimos cercanos. Puede sustituirse por solo uno de los dos para evitar redundancia.",
+          "position": [304, 337]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "media",
+      "data": "Durante la reunión se discutieron diversos puntos que fueron considerados importantes por los participantes, aunque algunos expresaron reservas sobre su implementación. Esto generó un debate extenso en el cual se trataron diferentes perspectivas, sin llegar a una conclusión definitiva."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "su implementación",
+          "category": "Ambigüedad",
+          "type": "Pronombre posesivo impreciso",
+          "question": "¿Podrías especificar con mayor claridad a qué se refiere 'su'? ¿A los puntos, a las reservas, o a otro elemento?",
+          "explanation": "El pronombre 'su' es ambiguo porque no se identifica claramente a qué se refiere: a los puntos discutidos o a las reservas.",
+          "position": [110, 127]
+        },
+        {
+          "data": "Esto generó un debate extenso",
+          "category": "Ambigüedad",
+          "type": "Deixis confusa",
+          "question": "¿Qué exactamente generó el debate? ¿Las reservas, los puntos o la discusión en general?",
+          "explanation": "La palabra 'Esto' no tiene un referente claro en la oración anterior, lo que dificulta la comprensión precisa del argumento.",
+          "position": [129, 157]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "alta",
+      "data": "En relación con las metas institucionales, el comité ha decidido priorizar los indicadores que permitan medir con mayor precisión el impacto social del programa, aunque esto implique reestructurar ciertos componentes, lo cual, según lo estipulado en el informe anterior, podría variar dependiendo de los contextos específicos de aplicación, sin que necesariamente se altere la naturaleza del mismo."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "lo cual, según lo estipulado en el informe anterior, podría variar dependiendo de los contextos específicos de aplicación",
+          "category": "Cohesión semántica",
+          "type": "Exceso de subordinación con pérdida de foco",
+          "question": "¿Podrías dividir o simplificar esta oración para clarificar la idea principal?",
+          "explanation": "La oración contiene múltiples niveles de subordinación que diluyen la idea central, lo que complica la comprensión global del mensaje.",
+          "position": [146, 249]
+        },
+        {
+          "data": "sin que necesariamente se altere la naturaleza del mismo",
+          "category": "Ambigüedad léxica",
+          "type": "Referente vago",
+          "question": "¿A qué se refiere exactamente 'del mismo'? ¿Al programa, al informe, o a los componentes?",
+          "explanation": "El término 'del mismo' no tiene un referente explícito, generando ambigüedad sobre qué entidad conserva su naturaleza.",
+          "position": [251, 295]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "baja",
+      "data": "Los resultados fueron analizados y se tomaron las medidas correspondientes para evitar que la situación vuelva a repetirse. En adelante, se aplicarán lineamientos que contemplen lo ocurrido, asegurando que no haya inconvenientes similares."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "las medidas correspondientes",
+          "category": "Vaguedad",
+          "type": "Falta de especificidad",
+          "question": "¿Puedes especificar qué tipo de medidas fueron tomadas?",
+          "explanation": "El uso de expresiones vagas como 'medidas correspondientes' dificulta la transparencia y comprensión del contenido.",
+          "position": [60, 86]
+        },
+        {
+          "data": "lo ocurrido",
+          "category": "Ambigüedad léxica",
+          "type": "Referencia vaga",
+          "question": "¿Podrías clarificar a qué hecho específico se refiere 'lo ocurrido'?",
+          "explanation": "Expresiones como 'lo ocurrido' carecen de contexto y no aportan información útil si el lector no conoce el evento al que aluden.",
+          "position": [122, 134]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "media",
+      "data": "El documento fue revisado por los miembros del comité y posteriormente se aprobó sin objeciones, aunque algunos de ellos no estuvieron de acuerdo inicialmente con las modificaciones sugeridas."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "se aprobó sin objeciones",
+          "category": "Ambigüedad",
+          "type": "Referencia impersonal ambigua",
+          "question": "¿Podrías aclarar si 'se aprobó' se refiere al documento o a las modificaciones?",
+          "explanation": "El uso de 'se aprobó' genera ambigüedad sobre qué fue exactamente aprobado: el documento original o las modificaciones.",
+          "position": [64, 89]
+        },
+        {
+          "data": "aunque algunos de ellos no estuvieron de acuerdo inicialmente con las modificaciones sugeridas.",
+          "category": "Cohesión lógica",
+          "type": "Conector adversativo débil",
+          "question": "¿Consideras más adecuado emplear un conector como 'sin embargo' para marcar mejor el contraste?",
+          "explanation": "El conector 'aunque' al final de la oración atenúa la oposición expresada; podría ser más claro reestructurando la frase.",
+          "position": [91, 171]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "alta",
+      "data": "Los resultados del estudio presentan variaciones respecto a los obtenidos anteriormente, lo que en cierta forma podría estar relacionado con factores externos que no fueron completamente controlados, lo cual también ha sido señalado por otros autores en diferentes contextos."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "en cierta forma",
+          "category": "Vaguedad",
+          "type": "Expresión ambigua",
+          "question": "¿Puedes reemplazar 'en cierta forma' por una expresión más específica?",
+          "explanation": "La expresión 'en cierta forma' reduce la precisión y claridad del argumento, dejando espacio a interpretaciones diversas.",
+          "position": [111, 126]
+        },
+        {
+          "data": "lo cual también ha sido señalado por otros autores",
+          "category": "Ambigüedad",
+          "type": "Deixis difusa",
+          "question": "¿Podrías precisar qué hecho fue señalado por otros autores?",
+          "explanation": "La frase 'lo cual' es ambigua: no queda claro si se refiere a los factores externos, a la variación en los resultados o a otra parte del texto.",
+          "position": [166, 213]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "media",
+      "data": "El modelo propuesto pretende ser una solución adecuada para los distintos escenarios, sin embargo, su aplicabilidad puede verse limitada en contextos donde las condiciones no sean las más ideales."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "las condiciones no sean las más ideales",
+          "category": "Vaguedad",
+          "type": "Adjetivación poco precisa",
+          "question": "¿Qué condiciones específicas no serían ideales para la aplicación del modelo?",
+          "explanation": "La frase 'las más ideales' es ambigua y subjetiva; se recomienda especificar qué condiciones afectarían negativamente la aplicabilidad.",
+          "position": [119, 162]
+        },
+        {
+          "data": "sin embargo",
+          "category": "Conectores",
+          "type": "Uso débil de conector adversativo",
+          "question": "¿Sería más claro usar una puntuación distinta o separar esta idea en dos oraciones?",
+          "explanation": "El conector 'sin embargo' está insertado en medio de la oración sin una separación clara, lo cual debilita el contraste entre las ideas.",
+          "position": [68, 80]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "alta",
+      "data": "Cabe destacar que el análisis realizado proporciona información importante que permite comprender mejor las dinámicas internas del sistema, lo cual resulta relevante para entender con mayor profundidad las implicaciones que este tipo de estructuras pueden tener en contextos institucionales."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "comprender mejor las dinámicas internas del sistema",
+          "category": "Redundancia",
+          "type": "Duplicación conceptual",
+          "question": "¿Podrías evitar repetir ideas similares como 'comprender' y 'entender' más adelante?",
+          "explanation": "El uso repetido de expresiones similares ('comprender mejor', 'entender con mayor profundidad') genera redundancia innecesaria.",
+          "position": [66, 114]
+        },
+        {
+          "data": "lo cual resulta relevante para entender con mayor profundidad",
+          "category": "Estilo",
+          "type": "Falta de concreción",
+          "question": "¿Puedes reformular esta frase para evitar el exceso de generalidades?",
+          "explanation": "La estructura es vaga y genérica; se recomienda mayor precisión sobre qué se espera comprender en profundidad.",
+          "position": [116, 179]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "baja",
+      "data": "Se considera que algunas de las recomendaciones podrían ser útiles en ciertos casos, aunque no se tiene certeza de cuáles específicamente o en qué medida contribuirían al objetivo general."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "algunas de las recomendaciones",
+          "category": "Indefinición",
+          "type": "Falta de especificidad",
+          "question": "¿Puedes indicar a qué recomendaciones específicas te refieres?",
+          "explanation": "La expresión es demasiado general; sin una referencia concreta, el lector no puede saber a qué se refiere.",
+          "position": [18, 48]
+        },
+        {
+          "data": "cuáles específicamente o en qué medida",
+          "category": "Vaguedad",
+          "type": "Expresión poco clara",
+          "question": "¿Podrías reformular esta parte con mayor precisión para indicar cuáles son las recomendaciones útiles y su impacto?",
+          "explanation": "Frases como 'cuáles específicamente' y 'en qué medida' son demasiado vagas y dificultan una interpretación útil.",
+          "position": [79, 127]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "media",
+      "data": "El man llego tarde por que tuvo un contratiempo en su casa entonces no pudo presentar el informe."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "man",
+          "category": "Estilo",
+          "type": "Lenguaje informal",
+          "question": "¿Podrías usar una palabra más formal para referirte a esa persona?",
+          "explanation": "'Man' es una expresión coloquial y no adecuada para contextos formales.",
+          "position": [3, 6]
+        },
+        {
+          "data": "por que",
+          "category": "Ortografía",
+          "type": "Uso de conectores",
+          "question": "",
+          "explanation": "En este contexto causal se debe escribir 'porque', una sola palabra.",
+          "position": [22, 29]
+        },
+        {
+          "data": "entonces no pudo presentar el informe",
+          "category": "Redacción",
+          "type": "Conectores mal empleados",
+          "question": "",
+          "explanation": "El conector 'entonces' puede causar ambigüedad. Considera separar la oración o usar 'por lo tanto'.",
+          "position": [53, 90]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "alta",
+      "data": "El experimento demostro una gran cantidad de cosas que son muy importantes e interesantes en varios aspectos."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "demostro",
+          "category": "Ortografía",
+          "type": "Tilde",
+          "question": "",
+          "explanation": "La forma correcta es 'demostró', con tilde en la 'o'.",
+          "position": [17, 25]
+        },
+        {
+          "data": "una gran cantidad de cosas",
+          "category": "Redacción",
+          "type": "Imprecisión léxica",
+          "question": "",
+          "explanation": "La frase es ambigua y poco académica. Es mejor especificar qué cosas se demostraron.",
+          "position": [26, 54]
+        },
+        {
+          "data": "muy importantes e interesantes",
+          "category": "Redacción",
+          "type": "Vaguedad",
+          "question": "",
+          "explanation": "Evita calificativos genéricos. Es preferible explicar por qué son importantes e interesantes.",
+          "position": [59, 90]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "baja",
+      "data": "La empresa implemento nuevas metodologías lo cual ayudo mejorar la eficiencia."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "implemento",
+          "category": "Ortografía",
+          "type": "Tilde",
+          "question": "",
+          "explanation": "Debe llevar tilde: 'implementó'.",
+          "position": [12, 22]
+        },
+        {
+          "data": "lo cual ayudo mejorar",
+          "category": "Gramática",
+          "type": "Construcción incorrecta",
+          "question": "",
+          "explanation": "La estructura correcta sería 'lo cual ayudó a mejorar'.",
+          "position": [35, 56]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "académico",
+      "verbosity": "media",
+      "data": "A través del cual se pretende fomentar un análisis de los estudiantes sobre el tema, debido a que se considera que este tema es importante porque el tema lo requiere."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "tema, debido a que se considera que este tema es importante porque el tema lo requiere",
+          "category": "Redacción",
+          "type": "Repetición excesiva",
+          "question": "¿Podrías reformular la oración para evitar repetir 'tema' tantas veces?",
+          "explanation": "La repetición innecesaria del término 'tema' genera redundancia y confusión.",
+          "position": [85, 170]
+        },
+        {
+          "data": "A través del cual se pretende fomentar un análisis",
+          "category": "Redacción",
+          "type": "Oración enredada",
+          "question": "",
+          "explanation": "La oración es poco clara. Considera dividirla o usar una estructura más directa.",
+          "position": [0, 50]
+        }
+      ]
+    }
+  },
+  {
+    "input": {
+      "tone": "formal",
+      "verbosity": "alta",
+      "data": "Considerando que la situación económica no es buena y que muchas personas están siendo afectadas, por eso la empresa decidió aumentar la producción sin embargo no tienen los recursos."
+    },
+    "output": {
+      "errors": [
+        {
+          "data": "por eso la empresa decidió aumentar la producción",
+          "category": "Redacción",
+          "type": "Conectores mal empleados",
+          "question": "",
+          "explanation": "El conector 'por eso' está mal ubicado gramaticalmente. Se recomienda reestructurar la frase.",
+          "position": [82, 132]
+        },
+        {
+          "data": "sin embargo no tienen los recursos",
+          "category": "Redacción",
+          "type": "Contradicción no explicada",
+          "question": "",
+          "explanation": "Se introduce una contradicción sin contexto suficiente. Añade una explicación o transición.",
+          "position": [133, 170]
+        }
+      ]
+    }
+  }
+]
+
+aprende de este dataset y respondeme estrictamente según la estructura en formato json
+
+"input": {
+      "tone": "formal",
+      "verbosity": "alta",
+      "data": "Sinceramente me parecio malo la verdad"
+    }
+
+            `
+          }
+        ]
+      })
+   });
+  const data = await response.json();
+  const answer = data.data.choices[0].message.content;
+  console.log(answer);
+} catch (err) {
+  console.error('Error en la petición:', err.message);
+}

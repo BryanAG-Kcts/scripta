@@ -1,9 +1,37 @@
 import Swal from 'sweetalert2'
 
-export async function authRegister(email: string) {
-  const user = users.find(user => user.email !== email)
-  if (user) {
-    throw new Error('El correo ya está registrado')
+export async function authRegister(
+  email: string,
+  password: string,
+  username: string
+) {
+  try {
+    const response = await fetch('http://localhost:8000', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password, username })
+    })
+
+    if (!response.ok) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Error al crear la cuenta',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        position: 'top',
+        timer: 1500,
+        showConfirmButton: false,
+        theme: 'auto'
+      })
+
+      return false
+    }
+
+    return true
+  } catch {
+    return false
   }
 }
 
@@ -23,18 +51,3 @@ export function passwordValidator(password: string, confirmPassword: string) {
 
   return password === confirmPassword
 }
-
-const users = [
-  {
-    id: 1,
-    name: 'a',
-    email: 'a@gmail.com',
-    password: '123456'
-  },
-  {
-    id: 2,
-    name: 'b',
-    email: 'b@gmail.com',
-    password: '123456'
-  }
-]

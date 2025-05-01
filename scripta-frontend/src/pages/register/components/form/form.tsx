@@ -3,13 +3,13 @@ import globalStyles from '@/index.module.css'
 import type { FormEvent } from 'react'
 import Swal from 'sweetalert2'
 import { useLocation } from 'wouter'
-import { passwordValidator } from './constants'
+import { authRegister, passwordValidator } from './constants'
 import formStyles from './styles.module.css'
 
 export function Form() {
   const [, setLocation] = useLocation()
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
     const { password, passwordConfirmation, username, userEmail } =
@@ -20,7 +20,21 @@ export function Form() {
         userEmail: string
       }
 
-    if (passwordValidator(password, passwordConfirmation)) {
+    if (!passwordValidator(password, passwordConfirmation)) {
+      return
+    }
+
+    const data = await authRegister(userEmail, password, username)
+
+    if (!data) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Error al crear la cuenta',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        theme: 'auto'
+      })
+
       return
     }
 
