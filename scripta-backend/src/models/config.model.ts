@@ -31,4 +31,17 @@ export class ConfigModel {
       [id_user]
     );
   }
+
+  async updateConfig(id_setting : number, state: boolean, tone: string, verbosity: string, state_dictionarie:boolean){
+    return await this.db.query(`
+        UPDATE SETTINGS
+        SET 
+            State = $2,
+            Tone = $3,
+            Verbosity = $4,
+            State_dictionarie = $5
+        WHERE Id_setting = $1;
+    `, [id_setting, state, tone, verbosity, state_dictionarie])
+
+  }
 }

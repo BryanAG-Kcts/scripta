@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { config } from "../controllers/config.controllers";
+import { config, putConfig } from "../controllers/config.controllers";
 
 export const configRouter = Router();
 
 configRouter.get('/:id',  config);
-configRouter.put('/update', )
+configRouter.put('/update', putConfig)

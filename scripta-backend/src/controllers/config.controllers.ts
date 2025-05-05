@@ -39,3 +39,29 @@ export const config = async (req: Request, res: Response) => {
     data,
   });
 };
+
+export const putConfig = async (req: Request, res: Response) => {
+
+    const {id_setting, state, tone, verbosity, state_dictionarie} = req.body
+    try{
+        const config = await new ConfigModel().updateConfig(id_setting, state, tone, verbosity, state_dictionarie);
+        if(!config) {
+            res.status(404).json({
+                success : false,
+                message : 'No se han podido actualizar la configuración'
+            }) 
+            return
+        }
+
+        res.status(200).json({
+            success : true,
+            message : "Configuración actualizada"
+        })
+
+    }catch(error){
+        console.error('Update error:', error)
+        res
+          .status(500)
+          .json({ success: false, message: 'Error interno del servidor' })
+    }
+}
