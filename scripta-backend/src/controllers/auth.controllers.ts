@@ -7,6 +7,7 @@ export const login = async (req: Request, res: Response) => {
 
   try {
     const user = await userModel.findByEmail(email)
+    console.log(user)
     if (!user) {
       res.status(404).json({ success: false, message: 'Usuario no encontrado' })
       return

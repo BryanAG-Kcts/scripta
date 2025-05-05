@@ -8,5 +8,5 @@ indexRouter.use('/auth', authRouter)
 indexRouter.use('/ia', iaRouter)
 
 indexRouter.all('*', (_req, res) => {
-  res.json({ message: 'Error' })
+  res.json({ message: 'Error' }).status(404)
 })

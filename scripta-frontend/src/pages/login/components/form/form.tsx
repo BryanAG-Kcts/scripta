@@ -3,21 +3,27 @@ import { useUser } from '@/hooks/useUser/useUser'
 import globalStyles from '@/index.module.css'
 import type { FormEvent } from 'react'
 import { useLocation } from 'wouter'
+import { authLogin } from './constants'
 import formStyles from './styles.module.css'
 
 export function Form() {
   const [, setLocation] = useLocation()
   const { setUser } = useUser()
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    setUser({
-      id: 1,
-      name: 'John Doe',
-      email: 'XXXXXXXXXXXXXXXXX',
-      password: 'XXXXXXXXXXXXXXXXX'
-    })
+    const formData = new FormData(event.currentTarget)
+    const { password, email } = Object.fromEntries(formData) as {
+      password: string
+      email: string
+    }
 
+    const data = await authLogin(email, password)
+    if (!data[0]) {
+      return
+    }
+
+    setUser(data[1])
     setLocation('/')
   }
 
@@ -32,6 +38,7 @@ export function Form() {
         className={globalStyles.textInput}
         type='email'
         placeholder='Correo electrónico'
+        name='email'
       />
       <PasswordInput
         name='password'

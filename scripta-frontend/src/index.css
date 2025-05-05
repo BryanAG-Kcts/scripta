@@ -58,3 +58,30 @@ body {
   font-family: 'quicksand', sans-serif;
   position: relative;
 }
+
+.highlight {
+  border-bottom: 1px solid red;
+}
+
+.red-underline {
+  text-decoration: underline;
+  text-decoration-color: red;
+  text-decoration-thickness: 2px;
+}
+
+.overlay-mirror {
+  position: absolute;
+  color: white;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.overlay-target {
+  position: relative;
+  background: transparent;
+  color: transparent;
+  caret-color: white;
+}

@@ -1,23 +1,19 @@
 import Swal from 'sweetalert2'
 
-export async function authRegister(
-  email: string,
-  password: string,
-  username: string
-) {
+export async function authLogin(email: string, password: string) {
   try {
-    const response = await fetch('http://localhost:8000/auth/register', {
+    const response = await fetch('http://localhost:8000/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email, password, username })
+      body: JSON.stringify({ email, password })
     })
 
     if (!response.ok) {
       Swal.fire({
         title: 'Error',
-        text: 'Error al crear la cuenta',
+        text: 'Error al login la cuenta',
         icon: 'error',
         confirmButtonText: 'Aceptar',
         position: 'top',
@@ -26,20 +22,14 @@ export async function authRegister(
         theme: 'auto'
       })
 
-      return false
+      return [false]
     }
 
-    return true
+    return [true, await response.json()]
   } catch {
-    return false
-  }
-}
-
-export function passwordValidator(password: string, confirmPassword: string) {
-  if (password !== confirmPassword) {
     Swal.fire({
       title: 'Error',
-      text: 'Las contraseñas no coinciden',
+      text: 'Error al login la cuenta',
       icon: 'error',
       confirmButtonText: 'Aceptar',
       position: 'top',
@@ -47,7 +37,7 @@ export function passwordValidator(password: string, confirmPassword: string) {
       showConfirmButton: false,
       theme: 'auto'
     })
-  }
 
-  return password === confirmPassword
+    return [false]
+  }
 }

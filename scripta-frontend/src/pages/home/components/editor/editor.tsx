@@ -1,18 +1,51 @@
+import { createMirror, deleteMirror } from '@/utils/mirror'
 import { IconCopy, IconTrash } from '@tabler/icons-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import Swal from 'sweetalert2'
 import editorStyles from './styles.module.css'
 
 export function Editor() {
   const [textareaValue, setTextareaValue] = useState('')
 
+  useEffect(() => {
+    document
+      .querySelectorAll("textarea, input[type='text']")
+      .forEach(createMirror as () => void)
+
+    return () => {
+      deleteMirror()
+    }
+  }, [])
+
   function handleCopyText() {
     navigator.clipboard.writeText(textareaValue)
-    alert('Texto copiado al portapapeles')
+    Swal.fire({
+      title: 'Texto copiado al portapapeles',
+      icon: 'success',
+      timer: 2000,
+      showConfirmButton: false
+    })
   }
 
-  function handleDeleteText() {
+  async function handleDeleteText() {
+    const confirm = await Swal.fire({
+      title: '¿Estás seguro de eliminar el texto?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar'
+    })
+
+    if (!confirm.isConfirmed) {
+      return
+    }
+
     setTextareaValue('')
-    alert('Texto eliminado')
+    deleteMirror()
+    document
+      .querySelectorAll("textarea, input[type='text']")
+      .forEach(createMirror as () => void)
   }
 
   function textareaWordCount() {
@@ -45,7 +78,9 @@ export function Editor() {
       </div>
       <textarea
         value={textareaValue}
-        onChange={e => setTextareaValue(e.target.value)}
+        onChange={e => {
+          setTextareaValue(e.target.value)
+        }}
       />
       <div className='flex gap-4'>
         <p>Conteo de palabras: {textareaWordCount()}</p>

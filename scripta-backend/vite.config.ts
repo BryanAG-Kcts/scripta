@@ -10,7 +10,7 @@ export default defineConfig({
       fileName: 'index'
     },
     rollupOptions: {
-      external: ['node_modules']
+      external: ['node_modules', 'pg-cloudflare']
     }
   }
 });

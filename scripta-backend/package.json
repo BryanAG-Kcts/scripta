@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "vite build",
+    "build": "tsc",
     "dev": "nodemon ./src/index.ts",
+    "start": "node ./dist/index.js",
     "lint": "npx @biomejs/biome lint",
     "format": "npx @biomejs/biome format",
     "check": "npx @biomejs/biome check"
