@@ -10,7 +10,7 @@ export class UserModel {
   }
 
   async findByEmail(email: string) {
-    return await this.db.oneOrNone('SELECT * FROM users WHERE email = $1', [
+    return await this.db.oneOrNone('SELECT id, username as name, email, password FROM users WHERE email = $1', [
       email
     ])
   }
@@ -19,8 +19,7 @@ export class UserModel {
     const hashedPassword = await bcrypt.hash(password, 10)
     return await this.db.one(
       `INSERT INTO users (email, username, password)
-         VALUES ($1, $2, $3)
-         RETURNING id, email, username`,
+         VALUES ($1, $2, $3)`,
       [email, username, hashedPassword]
     )
   }
