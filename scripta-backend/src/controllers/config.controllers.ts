@@ -8,13 +8,13 @@ export const config = async (req: Request, res: Response) => {
   type DataItem = {
     state: boolean;
     tone: string;
-    state_dictionarie: boolean;
+    stateDictionarie: boolean;
     verbosity: string;
     domain: string;
     word: string;
   };
 
-  const { state, tone, state_dictionarie, verbosity } = input[0];
+  const { state, tone, stateDictionarie, verbosity } = input[0];
 
   const pages: string[] = Array.from(
     new Set(input.map((item: DataItem) => item.domain))
@@ -28,7 +28,7 @@ export const config = async (req: Request, res: Response) => {
     config: {
       state,
       tone,
-      state_dictionarie,
+      stateDictionarie,
       verbosity,
     },
     pages,
