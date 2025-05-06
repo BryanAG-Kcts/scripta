@@ -1,27 +1,27 @@
 import type { Request, Response } from 'express'
 import { ConfigModel } from "../models/config.model";
 
-export const config = async (req: Request, res: Response) => {
-  const id = parseInt(req.params.id);
-  const input = await new ConfigModel().consultConfig(id);
-  
-  type DataItem = {
-    state: boolean;
-    tone: string;
-    stateDictionary: boolean;
-    verbosity: string;
-    domain: string;
-    word: string;
-  };
+type DataItem = {
+  state: boolean;
+  tone: string;
+  stateDictionary: boolean;
+  verbosity: string;
+  domain: string;
+  word: string;
+};
 
+export const config = async (req: Request, res: Response) => {
+  const id = Number.parseInt(req.params.id)
+  const input = (await new ConfigModel().consultConfig(id)) as DataItem[];
+  
   const { state, tone, stateDictionary, verbosity } = input[0];
 
   const pages: string[] = Array.from(
-    new Set(input.map((item: DataItem) => item.domain))
+    new Set(input.map((item) => item.domain).filter((item) => !!item))
   );
 
   const dictionary: string[] = Array.from(
-    new Set(input.map((item: DataItem) => item.word))
+    new Set(input.map((item: DataItem) => item.word).filter((item) => !!item))
   );
 
   const data = {

@@ -1,4 +1,4 @@
-import { IDatabase } from "pg-promise";
+import type { IDatabase } from "pg-promise";
 import { PgConnection } from "../services/pgConnection.services";
 
 export class ConfigModel {
@@ -10,24 +10,21 @@ export class ConfigModel {
 
   async consultConfig(id_user: number) {
     return await this.db.query(
-      `
-    select 
+      `select 
         s.state,
         s.tone,
         s.state_dictionarie as "stateDictionary",
         s.verbosity,
         p.domain,
         d.word
-    from settings as s 
-    inner join users as u
+      from settings as s 
+      full join users as u
         on s.users_id = u.id
-    inner join pages as p
+      full join pages as p
         on s.id_setting = p.setting_id
-    inner join dictionaries as d
+      full join dictionaries as d
         on s.id_setting = d.setting_id
-    where u.id = $1
-    group by s.state, s.tone, s.state_dictionarie, s.verbosity, p.domain, d.word 
-        `,
+      where u.id = $1`,
       [id_user]
     );
   }
