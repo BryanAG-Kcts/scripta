@@ -4,7 +4,7 @@ import { ConfigModel } from "../models/config.model";
 export const config = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   const input = await new ConfigModel().consultConfig(id);
-
+  
   type DataItem = {
     state: boolean;
     tone: string;
@@ -20,7 +20,7 @@ export const config = async (req: Request, res: Response) => {
     new Set(input.map((item: DataItem) => item.domain))
   );
 
-  const dictionaries: string[] = Array.from(
+  const dictionary: string[] = Array.from(
     new Set(input.map((item: DataItem) => item.word))
   );
 
@@ -32,7 +32,7 @@ export const config = async (req: Request, res: Response) => {
       verbosity,
     },
     pages,
-    dictionaries,
+    dictionary,
   };
 
   res.json({

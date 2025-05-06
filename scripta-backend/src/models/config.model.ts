@@ -14,7 +14,7 @@ export class ConfigModel {
     select 
         s.state,
         s.tone,
-        s.state_dictionarie as stateDictionarie,
+        s.state_dictionarie as "stateDictionarie",
         s.verbosity,
         p.domain,
         d.word
