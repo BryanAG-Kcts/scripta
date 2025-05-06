@@ -14,7 +14,7 @@ export class ConfigModel {
     select 
         s.state,
         s.tone,
-        s.state_dictionarie as "stateDictionarie",
+        s.state_dictionarie as "stateDictionary",
         s.verbosity,
         p.domain,
         d.word
@@ -32,7 +32,7 @@ export class ConfigModel {
     );
   }
 
-  async updateConfig(id_setting : number, state: boolean, tone: string, verbosity: string, state_dictionarie:boolean){
+  async updateConfig(id_setting : number, state: boolean, tone: string, verbosity: string, stateDictionary:boolean){
     return await this.db.query(`
         UPDATE SETTINGS
         SET 
@@ -41,7 +41,7 @@ export class ConfigModel {
             Verbosity = $4,
             State_dictionarie = $5
         WHERE Id_setting = $1;
-    `, [id_setting, state, tone, verbosity, state_dictionarie])
+    `, [id_setting, state, tone, verbosity, stateDictionary])
 
   }
 }

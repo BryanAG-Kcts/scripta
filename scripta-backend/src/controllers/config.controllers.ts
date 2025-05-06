@@ -8,13 +8,13 @@ export const config = async (req: Request, res: Response) => {
   type DataItem = {
     state: boolean;
     tone: string;
-    stateDictionarie: boolean;
+    stateDictionary: boolean;
     verbosity: string;
     domain: string;
     word: string;
   };
 
-  const { state, tone, stateDictionarie, verbosity } = input[0];
+  const { state, tone, stateDictionary, verbosity } = input[0];
 
   const pages: string[] = Array.from(
     new Set(input.map((item: DataItem) => item.domain))
@@ -28,7 +28,7 @@ export const config = async (req: Request, res: Response) => {
     config: {
       state,
       tone,
-      stateDictionarie,
+      stateDictionary,
       verbosity,
     },
     pages,
@@ -42,9 +42,9 @@ export const config = async (req: Request, res: Response) => {
 
 export const putConfig = async (req: Request, res: Response) => {
 
-    const {id_setting, state, tone, verbosity, state_dictionarie} = req.body
+    const {id_setting, state, tone, verbosity, stateDictionary} = req.body
     try{
-        const config = await new ConfigModel().updateConfig(id_setting, state, tone, verbosity, state_dictionarie);
+        const config = await new ConfigModel().updateConfig(id_setting, state, tone, verbosity, stateDictionary);
         if(!config) {
             res.status(404).json({
                 success : false,

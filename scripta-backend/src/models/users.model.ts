@@ -17,11 +17,25 @@ export class UserModel {
 
   async createUser(email: string, username: string, password: string) {
     const hashedPassword = await bcrypt.hash(password, 10)
-    return await this.db.one(
+    const {id} = await this.db.one(
       `INSERT INTO users (email, username, password)
-         VALUES ($1, $2, $3)`,
-      [email, username, hashedPassword]
-    )
+         VALUES ($1, $2, $3)
+        returning id`,
+      [email, username, hashedPassword])
+
+      const stateDefault : boolean = true
+      const toneDefault : string = 'formal'
+      const verbosityDefault : string = 'media'
+      const stateDictionaryDefault : boolean = true
+
+      if(id){
+         await this.db.query(`
+          INSERT INTO SETTINGS (USERS_Id, State, Tone, Verbosity, State_dictionarie)
+          VALUES ($1, $2, $3, $4, $5);
+        `,[id, stateDefault, toneDefault, verbosityDefault, stateDictionaryDefault])
+          return true
+      } 
+      return false     
   }
 
   async verifyPassword(

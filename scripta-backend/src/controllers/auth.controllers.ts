@@ -53,11 +53,7 @@ export const register = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      user: {
-        id: newUser.id,
-        email: newUser.email,
-        username: newUser.username
-      }
+      msg : "El usuario y su configuración han sido creados con exito"
     })
   } catch (error) {
     console.error('Register error:', error)
