@@ -1,5 +1,5 @@
-import { debounce } from './debounce'
 import { cleanHighlight, highlightText } from './highlightText'
+import { createTippy } from './tippy'
 
 export function createMirror(element: HTMLElement) {
   const mirror = document.createElement('div')
@@ -15,7 +15,8 @@ export function createMirror(element: HTMLElement) {
     'whiteSpace',
     'wordWrap',
     'boxSizing',
-    'textAlign'
+    'textAlign',
+    'background'
   ] as const) {
     mirror.style[prop] = style[prop]
   }
@@ -29,6 +30,7 @@ export function createMirror(element: HTMLElement) {
   if (!element.parentElement) {
     return
   }
+
   element.parentElement.style.position = 'relative'
   element.parentElement.appendChild(mirror)
 
@@ -36,12 +38,13 @@ export function createMirror(element: HTMLElement) {
     cleanHighlight(mirror)
     mirror.innerHTML = highlightText(element)
   })
+
   element.addEventListener('scroll', () => {
     mirror.scrollTop = element.scrollTop
     mirror.scrollLeft = element.scrollLeft
   })
 
-  mirror.innerHTML = highlightText(element)
+  createTippy(element)
 
   setInterval(() => {
     mirror.innerHTML = highlightText(element)

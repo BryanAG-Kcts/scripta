@@ -23,7 +23,8 @@ export function Form() {
       return
     }
 
-    setUser(data[1])
+    setUser(data[1].data)
+    localStorage.setItem('user', JSON.stringify(data[1].data))
     setLocation('/')
   }
 

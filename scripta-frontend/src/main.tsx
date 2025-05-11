@@ -6,6 +6,9 @@ import { Home } from './pages/home/home'
 import { Login } from './pages/login/login'
 import { Register } from './pages/register/register'
 import { WebExtension } from './pages/web-extension/web-extension'
+import { Config } from './pages/config/config'
+import 'tippy.js/dist/tippy.css'
+import './utils/tippy.css'
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
@@ -28,6 +31,11 @@ createRoot(document.getElementById('root') as HTMLElement).render(
       <Route
         path='/login'
         component={Login}
+      />
+
+      <Route
+        path='/config'
+        component={Config}
       />
 
       <Route>404: No such page!</Route>

@@ -23,7 +23,8 @@ export function Editor() {
       title: 'Texto copiado al portapapeles',
       icon: 'success',
       timer: 2000,
-      showConfirmButton: false
+      showConfirmButton: false,
+      theme: 'auto'
     })
   }
 
@@ -34,7 +35,8 @@ export function Editor() {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminar'
+      confirmButtonText: 'Sí, eliminar',
+      theme: 'auto'
     })
 
     if (!confirm.isConfirmed) {
