@@ -72,3 +72,11 @@ export async function consultModel(req: Request, res: Response) {
 	console.log(data.choices[0].message.content)
 	res.json(data.choices[0].message.content);
 }
+
+export async function kadolia(req: Request, res: Response) {
+	const { messages } = req.body
+	const iaModel = new IaModel()
+  
+	const data = await iaModel.chatCompletion(messages)
+	res.json({ data })
+  }

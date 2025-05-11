@@ -4,10 +4,10 @@ import { client } from "../services/ia.services";
 export class IaModel {
 	static iaClient = client;
 
-	// static defaultConfig = {
-	// 	provider: "novita", // hiperbolic
-	// 	model: "deepseek-ai/DeepSeek-V3-0324",
-	// };
+	static defaultConfig = {
+		provider: "novita",
+		model: "deepseek-ai/DeepSeek-V3-0324",
+	};
 
 	static IaConfig = {
 		// provider: "nebius",
@@ -16,12 +16,12 @@ export class IaModel {
 		model: "CohereLabs/c4ai-command-a-03-2025",
 	};
 
-	// async chatCompletion(messages: []) {
-	// 	return await IaModel.iaClient.chatCompletion({
-	// 		...IaModel.defaultConfig,
-	// 		messages,
-	// 	});
-	// }
+	async chatCompletion(messages: []) {
+		return await IaModel.iaClient.chatCompletion({
+			...IaModel.defaultConfig,
+			messages,
+		});
+	}
 
 	async chatIACompletion(messages: Message[]) {
 		return await IaModel.iaClient.chatCompletion({
