@@ -1,0 +1,22 @@
+.pane {
+  background: var(--color-background-100);
+  border-radius: var(--border-radius-md);
+  padding: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 300px;
+}
+
+.suggestions {
+  background: var(--color-background-000);
+  border-radius: var(--border-radius-md);
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .pane {
+    max-width: 300px;
+  }
+}

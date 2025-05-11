@@ -1,0 +1,87 @@
+@import 'tailwindcss';
+
+:root {
+  /* Neutral colors */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-surface-000: #ffffff;
+  --color-surface-100: #f0f0f0;
+  --color-surface-200: #e1e1e1;
+  --color-surface-300: #d3d3d3;
+  --color-surface-400: #c5c5c5;
+  --color-surface-500: #b6b6b6;
+
+  /* Background and text colors */
+  --color-background-000: var(--color-surface-000);
+  --color-background-100: var(--color-surface-100);
+  --color-background-200: var(--color-surface-200);
+  --color-background-300: var(--color-surface-300);
+  --color-background-400: var(--color-surface-400);
+  --color-background-500: var(--color-surface-500);
+
+  --color-text-000: var(--color-black);
+  --color-text-300: var(--color-surface-300);
+
+  /* Primary colors */
+  --color-primary-100: #ebd5ff;
+  --color-primary-200: #c384fc;
+  --color-primary-300: #9333e9;
+  --color-primary-900: #6721a8;
+  --color-primary-950: #380764;
+
+  /* units of measurement */
+  --border-radius-sm: var(--radius-sm);
+  --border-radius-md: var(--radius-md);
+
+  --text-size-md: var(--text-base);
+  --text-size-lg: var(--text-lg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Neutral colors */
+    --color-surface-000: #121212;
+    --color-surface-100: #282828;
+    --color-surface-200: #3f3f3f;
+    --color-surface-300: #575757;
+    --color-surface-400: #717171;
+    --color-surface-500: #8b8b8b;
+
+    --color-text-000: var(--color-white);
+  }
+}
+
+body {
+  background-color: var(--color-background-000);
+  color: var(--color-text-000);
+  font-family: 'quicksand', sans-serif;
+  position: relative;
+}
+
+.highlight {
+  border-bottom: 1px solid red;
+}
+
+.red-underline {
+  text-decoration: underline;
+  text-decoration-color: red;
+  text-decoration-thickness: 2px;
+}
+
+.overlay-mirror {
+  position: absolute;
+  color: transparent;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+  background: transparent !important;
+}
+
+.overlay-target {
+  position: relative;
+  caret-color: white;
+  z-index: 1;
+}

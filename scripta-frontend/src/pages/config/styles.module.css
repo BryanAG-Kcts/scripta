@@ -1,0 +1,31 @@
+.config {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 50px 10px;
+}
+
+.config h1, .config h2 {
+    font-family: 'poppins', sans-serif;
+    font-weight: 600;
+}
+
+.config h1 {
+    font-size: 2em;
+}
+
+.config h1 {
+    font-size: 1.5em;
+}
+
+.config > section, .config > section > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.config > section {
+    gap: 30px;
+}

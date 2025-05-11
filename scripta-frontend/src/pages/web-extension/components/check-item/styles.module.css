@@ -1,0 +1,17 @@
+.body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.body > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  background: var(--color-background-100);
+  padding: 8px;
+  border-radius: 7px;
+}

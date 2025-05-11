@@ -1,0 +1,37 @@
+.custom-tooltip {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.custom-tooltip article {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--color-background-200);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.custom-tooltip article div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.custom-tooltip > div {
+  display: flex;
+  gap: 10px;
+}
+
+.custom-tooltip > div button {
+  background: var(--color-primary-900);
+  padding: 10px 15px;
+  flex: 1;
+  border-radius: 5px;
+  transition: opacity 0.3s;
+}
+
+.custom-tooltip > div button:hover {
+  opacity: 0.7;
+}
