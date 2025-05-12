@@ -31,7 +31,7 @@ export async function consultModel(req: Request, res: Response) {
 				- **Media**: explicaciones moderadas
 				- **Alta**: explicaciones detalladas y profundas
 
-				Devuelve **exclusivamente** un objeto JSON con la siguiente estructura:
+				Devuelve **exclusivamente** un objeto JSON en texto plano, no markdown, con la siguiente estructura:
 
 				{
 					"output": {
