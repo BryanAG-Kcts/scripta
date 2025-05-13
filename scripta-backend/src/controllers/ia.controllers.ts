@@ -57,7 +57,7 @@ export async function consultModel(req: Request, res: Response) {
 
 				"explanation": explicación clara del error, su causa y cómo puede corregirse, ajustada al nivel de verbosidad indicado.
 
-				"position": índice de inicio y fin del error dentro del texto recibido, medido en número de caracteres.
+				"position": índice de inicio y fin del error dentro del texto recibido, medido en número de caracteres. Cada error debe tener un rango único y no debe haber solapamientos.
 
 				No incluyas ninguna explicación fuera del JSON. Tu objetivo es ayudar al usuario a mejorar su redacción mediante un análisis claro, técnico y reflexivo, según el tono y nivel indicados.
 			`,
