@@ -3,19 +3,80 @@ import { IconCopy, IconTrash } from '@tabler/icons-react'
 import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import editorStyles from './styles.module.css'
+import { useText } from '@/hooks/useText/useText'
+import { useConfig } from '@/hooks/useConfig/useConfig'
+import { debounce } from '@/utils/debounce'
+import { cleanHighlight, highlightText } from '@/utils/highlightText'
+import { fetchIa } from '@/utils/fetchIa'
+import { useUser } from '@/hooks/useUser/useUser'
+import { useLocation } from 'wouter'
+import type { User } from '@/hooks/useUser/interfaces'
+import type { feedBackText } from '@/hooks/useText/interfaces'
+import { createTippy } from '@/utils/tippy'
 
 export function Editor() {
   const [textareaValue, setTextareaValue] = useState('')
+  const { setFeedBack } = useText()
+  const { config, fetchConfig } = useConfig()
+  const { user, setUser } = useUser()
+  const [, r] = useLocation()
+  const [del, setDel] = useState(false)
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    document
-      .querySelectorAll("textarea, input[type='text']")
-      .forEach(createMirror as () => void)
+    const events : EventListener[] = []
+    ;(async () => {
+      const iUser: User | null =
+        user || JSON.parse(window.localStorage.getItem('user') || 'null')
+
+      if (!iUser) {
+        r('/login')
+        return
+      }
+
+      setUser(iUser)
+      if (!config) {
+        await fetchConfig(`${iUser.id}`)
+        return
+      }
+
+      const inputs = document.querySelectorAll(
+        "textarea, input[type='text']"
+      ) as NodeListOf<HTMLElement>
+
+      for (const input of inputs) {
+        const mirror = createMirror(input)
+        const debounced = debounce(async () => {
+          cleanHighlight(mirror)
+          const data = (
+            await fetchIa(
+              config.tone,
+              config.verbosity,
+              (input as HTMLInputElement).value
+            )
+          ).output.errors as feedBackText[]
+
+          setFeedBack(data)
+          createTippy(input, data)
+          mirror.innerHTML = highlightText(
+            input,
+            data.map(e => e.position)
+          )
+        }, 1000)
+
+        events.push(debounced)
+        input.addEventListener('input', debounced)
+      }
+    })()
 
     return () => {
       deleteMirror()
+      for (const event of events) {
+        document.removeEventListener('input', event)
+      }
+      events.length = 0
     }
-  }, [])
+  }, [config, user, r, setUser, fetchConfig, setFeedBack, del])
 
   function handleCopyText() {
     navigator.clipboard.writeText(textareaValue)
@@ -45,9 +106,7 @@ export function Editor() {
 
     setTextareaValue('')
     deleteMirror()
-    document
-      .querySelectorAll("textarea, input[type='text']")
-      .forEach(createMirror as () => void)
+    setDel(!del)
   }
 
   function textareaWordCount() {

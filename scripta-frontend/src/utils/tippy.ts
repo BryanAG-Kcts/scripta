@@ -1,52 +1,21 @@
+import type { feedBackText } from '@/hooks/useText/interfaces'
 import tippy, { type Instance } from 'tippy.js'
 
-interface TooltipData {
-  category: string
-  data: string
-  question: string
-  explanation: string
-  position: [number, number]
-}
-
-const defaultData: TooltipData[] = [
-  {
-    category: '1',
-    data: '1',
-    question: '1',
-    explanation: '1',
-    position: [0, 0]
-  },
-  {
-    category: '2',
-    data: '2',
-    question: '2',
-    explanation: '2',
-    position: [0, 0]
-  },
-  {
-    category: '3',
-    data: '3',
-    question: '3',
-    explanation: '3',
-    position: [0, 0]
-  }
-]
-
-export function createTippy(element: HTMLElement) {
+export function createTippy(element: HTMLElement, data: feedBackText[]) {
   tippy(element, {
     allowHTML: true,
     interactive: true,
     appendTo: document.body,
     onCreate: instance => {
-      instance.setContent(createTippyContent(instance, defaultData))
+      instance.setContent(createTippyContent(instance, data, 0))
     }
   })
 }
 
 function createTippyContent(
   instance: Instance,
-  data: TooltipData[],
-  index = 0
+  data: feedBackText[],
+  index: number
 ) {
   const item = data[index]
   const content = /*html*/ `
@@ -62,10 +31,13 @@ function createTippyContent(
           <p>${item.explanation}</p>
         </div>
 
+        <!--
         <div>
           <p>¿Puedes preguntarte?</p>
           <p>${item.question}</p>
         </div>
+        !-->
+        
     </article>
 
     <div>
@@ -88,16 +60,16 @@ function createTippyContent(
   return div
 }
 
-function updateTippy(instance: Instance, index: number) {
-  instance.setContent(createTippyContent(instance, defaultData, index))
+function updateTippy(instance: Instance, index: number, data: feedBackText[]) {
+  instance.setContent(createTippyContent(instance, data, index))
 }
 
-function nextTippy(instance: Instance, index: number, data: TooltipData[]) {
+function nextTippy(instance: Instance, index: number, data: feedBackText[]) {
   const newIndex = index >= data.length - 1 ? 0 : index + 1
-  updateTippy(instance, newIndex)
+  updateTippy(instance, newIndex, data)
 }
 
-function prevTippy(instance: Instance, index: number, data: TooltipData[]) {
+function prevTippy(instance: Instance, index: number, data: feedBackText[]) {
   const newIndex = index === 0 ? data.length - 1 : index - 1
-  updateTippy(instance, newIndex)
+  updateTippy(instance, newIndex, data)
 }

@@ -5,12 +5,17 @@ import listItemStyles from './styles.module.css'
 interface Props {
   label: string
   children: ReactNode
-  options: {
-    value: string
-    label: string
-  }[]
+  options: string[]
+  defaultValue: string
+  saveItem: (item: string) => void
 }
-export function ListItem({ children, label, options }: Props) {
+export function ListItem({
+  children,
+  label,
+  options,
+  defaultValue,
+  saveItem
+}: Props) {
   return (
     <div className={checkItemStyles.body}>
       <div>
@@ -18,13 +23,17 @@ export function ListItem({ children, label, options }: Props) {
         <p>{label}</p>
       </div>
 
-      <select className={listItemStyles.select}>
-        {options.map(({ value, label }) => (
+      <select
+        className={listItemStyles.select}
+        onChange={e => saveItem(e.target.value)}
+        defaultValue={defaultValue}
+      >
+        {options.map(value => (
           <option
             key={value}
             value={value}
           >
-            {label}
+            {value}
           </option>
         ))}
       </select>
