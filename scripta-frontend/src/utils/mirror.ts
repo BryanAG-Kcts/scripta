@@ -1,6 +1,3 @@
-import { cleanHighlight, highlightText } from './highlightText'
-import { createTippy } from './tippy'
-
 export function createMirror(element: HTMLElement) {
   const mirror = document.createElement('div')
   mirror.className = 'overlay-mirror'
@@ -28,27 +25,31 @@ export function createMirror(element: HTMLElement) {
 
   element.classList.add('overlay-target')
   if (!element.parentElement) {
-    return
+    return mirror
   }
 
   element.parentElement.style.position = 'relative'
   element.parentElement.appendChild(mirror)
 
-  element.addEventListener('input', () => {
-    cleanHighlight(mirror)
-    mirror.innerHTML = highlightText(element)
-  })
+  // const debounced = debounce(async () => {
+  //   cleanHighlight(mirror)
+  //   console.log(await fetchIa('acádemico', 'alta', 'Hola como estas'))
+  //   mirror.innerHTML = highlightText(element)
+  // }, 1000)
+
+  // element.addEventListener('input', () => {
+  //   debounced()
+  // })
 
   element.addEventListener('scroll', () => {
     mirror.scrollTop = element.scrollTop
     mirror.scrollLeft = element.scrollLeft
   })
+  return mirror
 
-  createTippy(element)
-
-  setInterval(() => {
-    mirror.innerHTML = highlightText(element)
-  }, 200)
+  // setInterval(() => {
+  //   mirror.innerHTML = highlightText(element)
+  // }, 200)
 }
 
 export function deleteMirror() {

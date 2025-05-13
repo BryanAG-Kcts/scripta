@@ -1,21 +1,21 @@
-import type { Request, Response } from "express";
-import { IaModel } from "../models/ia.model";
+import type { Request, Response } from 'express'
+import { IaModel } from '../models/ia.model'
 
 export interface Message {
-	role: string;
-	content: string;
+  role: string
+  content: string
 }
 
 export async function consultModel(req: Request, res: Response) {
-	const { tone, verbosity, text } = req.body;
-	const iaModel = new IaModel();
+  const { tone, verbosity, text } = req.body
+  const iaModel = new IaModel()
 
-	// const data = await iaModel.chatCompletion(messages)
+  // const data = await iaModel.chatCompletion(messages)
 
-	const messages: Message[] = [
-		{
-			role: "system",
-			content: `Actúa como un corrector avanzado de redacción impulsado por inteligencia artificial. Vas a recibir un *texto* que puede ser una frase, un párrafo o varios. 
+  const messages: Message[] = [
+    {
+      role: 'system',
+      content: `Actúa como un corrector avanzado de redacción impulsado por inteligencia artificial. Vas a recibir un *texto* que puede ser una frase, un párrafo o varios. 
 
 				Tu tarea es analizar exhaustivamente el texto con base en el tono proporcionado = **${tone}** y detectar errores de los siguientes tipos:
 				- Ortografía
@@ -60,23 +60,22 @@ export async function consultModel(req: Request, res: Response) {
 				"position": índice de inicio y fin del error dentro del texto recibido, medido en número de caracteres.
 
 				No incluyas ninguna explicación fuera del JSON. Tu objetivo es ayudar al usuario a mejorar su redacción mediante un análisis claro, técnico y reflexivo, según el tono y nivel indicados.
-			`,
-		},
-		{
-			role: "user",
-			content: text,
-		},
-	];
+			`
+    },
+    {
+      role: 'user',
+      content: text
+    }
+  ]
 
-	const data = await iaModel.chatIACompletion(messages);
-	console.log(data.choices[0].message.content)
-	res.json(data.choices[0].message.content);
+  const data = await iaModel.chatIACompletion(messages)
+  res.json(JSON.parse(data.choices[0].message.content ?? '{}'))
 }
 
 export async function kadolia(req: Request, res: Response) {
-	const { messages } = req.body
-	const iaModel = new IaModel()
-  
-	const data = await iaModel.chatCompletion(messages)
-	res.json({ data })
-  }
+  const { messages } = req.body
+  const iaModel = new IaModel()
+
+  const data = await iaModel.chatCompletion(messages)
+  res.json({ data })
+}

@@ -49,9 +49,7 @@ export function Config() {
         theme: 'dark'
       })
 
-      if (user) {
-        setLocation('/login')
-      }
+      setLocation('/login')
     })()
   }, [fetchConfig, setLocation, setUser])
 
