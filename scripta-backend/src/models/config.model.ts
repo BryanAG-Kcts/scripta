@@ -1,11 +1,29 @@
 import type { IDatabase } from "pg-promise";
 import { PgConnection } from "../services/pgConnection.services";
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+
 
 export class ConfigModel {
   private db: IDatabase<unknown>;
 
   constructor() {
     this.db = PgConnection.getInstance().connection;
+  }
+
+  async resetSchema() {
+    await this.db.query(`
+      DROP SCHEMA IF EXISTS public CASCADE;
+      CREATE SCHEMA public;
+    `);
+  }
+
+  async createBaseDatos(){
+    this.resetSchema()
+    const sqlPath = path.join(__dirname, '../sql/back_scripta_plain.sql');
+    const sql = readFileSync(sqlPath, 'utf8');
+
+    return await this.db.query(`${sql}`)
   }
 
   async consultConfig(id_user: number) {
