@@ -1,4 +1,4 @@
-CREATE SCHEMA IF NOT EXISTS public AUTHORIZATION postgres;
+CREATE SCHEMA IF NOT EXISTS public;
 
 CREATE SEQUENCE IF NOT EXISTS public.dictionaries_id_dictionarie_seq
     AS integer
