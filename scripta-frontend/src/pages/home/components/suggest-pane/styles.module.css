@@ -24,6 +24,8 @@
 .suggestions > div {
   background: var(--color-background-200);
   border-radius: var(--border-radius-md);
+  overflow-y: visible;
+  max-height: none;
 }
 
 @media (min-width: 768px) {

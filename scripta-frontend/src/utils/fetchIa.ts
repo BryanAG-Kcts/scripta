@@ -1,16 +1,19 @@
 export async function fetchIa(tone: string, verbosity: string, text: string) {
   try {
-    const response = await fetch('http://localhost:8000/ia/consult', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        tone,
-        verbosity,
-        text
-      })
-    })
+    const response = await fetch(
+      'https://scripta-backend.vercel.app/ia/consult',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          tone,
+          verbosity,
+          text
+        })
+      }
+    )
     const data = await response.json()
     return data
   } catch {

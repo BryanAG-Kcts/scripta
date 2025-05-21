@@ -9,7 +9,9 @@ export const useConfig = create<UseConfig>((set, get) => ({
   settingId: undefined,
   fetchConfig: async (userId: string) => {
     try {
-      const response = await fetch(`http://localhost:8000/config/${userId}`)
+      const response = await fetch(
+        `https://scripta-backend.vercel.app/config/${userId}`
+      )
       const { data } = await response.json()
       set({
         config: data.config,
@@ -29,7 +31,7 @@ export const useConfig = create<UseConfig>((set, get) => ({
   saveConfig: async () => {
     const { config, pages, words, settingId } = get()
     const response = await Promise.all([
-      fetch('http://localhost:8000/config/update', {
+      fetch('https://scripta-backend.vercel.app/config/update', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -39,7 +41,7 @@ export const useConfig = create<UseConfig>((set, get) => ({
           ...config
         })
       }),
-      fetch('http://localhost:8000/config/update-pages', {
+      fetch('https://scripta-backend.vercel.app/config/update-pages', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -49,7 +51,7 @@ export const useConfig = create<UseConfig>((set, get) => ({
           arrayDomains: pages
         })
       }),
-      fetch('http://localhost:8000/config/update-dictionary', {
+      fetch('https://scripta-backend.vercel.app/config/update-dictionary', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

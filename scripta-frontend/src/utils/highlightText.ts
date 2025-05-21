@@ -1,16 +1,17 @@
 import { caretEnd, debounce } from './debounce'
+import { fusionRange } from './fusionRange'
 
 export function highlightText(
   element: HTMLElement,
   positions: [number, number][]
 ) {
   const text = element.innerText || (element as HTMLTextAreaElement).value
-  positions.sort((a, b) => a[0] - b[0])
+  const pos = fusionRange(positions)
 
   let highlightedText = ''
   let lastIndex = 0
 
-  for (const [start, end] of positions) {
+  for (const [start, end] of pos) {
     highlightedText += text.slice(lastIndex, start)
     highlightedText += `<span class="highlight">${text.slice(start, end)}</span>`
     lastIndex = end

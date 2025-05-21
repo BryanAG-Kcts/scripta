@@ -9,6 +9,7 @@ export function Header() {
   useEffect(() => {
     if (!user) {
       const user = JSON.parse(localStorage.getItem('user') || 'null')
+      console.log(user)
       setUser(user)
     }
   }, [setUser, user])
@@ -21,7 +22,10 @@ export function Header() {
       </div>
       {user ? (
         <p>
-          Bienvenido, <span>{user.name}</span>
+          Bienvenido,{' '}
+          <Link href='/config'>
+            <span>{user.name}</span>
+          </Link>
         </p>
       ) : (
         <Link href='/login'>Registrarse o iniciar sesión</Link>

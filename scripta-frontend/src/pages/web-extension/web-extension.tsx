@@ -10,16 +10,26 @@ import { CheckItem } from './components/check-item/check-item'
 import { ListItem } from './components/list-item/list-item'
 import webExtensionStyles from './styles.module.css'
 import { useConfig } from '@/hooks/useConfig/useConfig'
-import { useEffect } from 'react'
-import { Link, useLocation } from 'wouter'
+import { type FormEvent, useEffect, useState } from 'react'
+import { Link } from 'wouter'
 import { useUser } from '@/hooks/useUser/useUser'
-import Swal from 'sweetalert2'
 import globalStyles from '@/index.module.css'
+import formStyles from '../login/components/form/styles.module.css'
+import { PasswordInput } from '@/components/password-input/password-input'
+import type { User } from '@/hooks/useUser/interfaces'
+import { authLogin } from '../login/components/form/constants'
+import { createMirror, deleteMirror } from '@/utils/mirror'
+import { debounce } from '@/utils/debounce'
+import { cleanHighlight, highlightText } from '@/utils/highlightText'
+import { fetchIa } from '@/utils/fetchIa'
+import type { feedBackText } from '@/hooks/useText/interfaces'
+import { useText } from '@/hooks/useText/useText'
 
 export function WebExtension() {
-  const { fetchConfig, config, setConfig, saveConfig } = useConfig()
-  const [, setLocation] = useLocation()
+  const { fetchConfig, setConfig, saveConfig, config } = useConfig()
   const { setUser, user } = useUser()
+  const { setFeedBack } = useText()
+  const [a, setA] = useState(0)
 
   useEffect(() => {
     ;(async () => {
@@ -28,29 +38,119 @@ export function WebExtension() {
       if (user) {
         setUser(user)
         await fetchConfig(`${user.id}`)
+      }
+    })()
+  }, [fetchConfig, setUser])
+
+  useEffect(() => {
+    ;(async () => {
+      const [tab] = await chrome.tabs.query({
+        active: true,
+        currentWindow: true
+      })
+
+      chrome.runtime.sendMessage({
+        action: 'enviarAlContentScript',
+        tabId: tab.id,
+        data: config
+      })
+    })()
+  }, [config])
+
+  useEffect(() => {
+    const events: EventListener[] = []
+    ;(async () => {
+      if (!config) {
         return
       }
 
-      await Swal.fire({
-        title: 'Error',
-        text: 'No se pudo cargar la configuración',
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
-        theme: 'dark'
-      })
+      const inputs = document.querySelectorAll(
+        "textarea, input[type='text']"
+      ) as NodeListOf<HTMLElement>
 
-      if (user) {
-        setLocation('/login')
+      setA(inputs.length)
+
+      for (const input of inputs) {
+        const mirror = createMirror(input)
+        const debounced = debounce(async () => {
+          cleanHighlight(mirror)
+          const data = (
+            await fetchIa(
+              config.tone,
+              config.verbosity,
+              (input as HTMLInputElement).value
+            )
+          ).output.errors as feedBackText[]
+
+          setFeedBack(data)
+          mirror.innerHTML = highlightText(
+            input,
+            data.map(e => e.position)
+          )
+        }, 1000)
+
+        events.push(debounced)
+        input.addEventListener('input', debounced)
       }
     })()
-  }, [fetchConfig, setLocation, setUser])
+
+    return () => {
+      deleteMirror()
+      for (const event of events) {
+        document.removeEventListener('input', event)
+      }
+      events.length = 0
+    }
+  }, [config, setFeedBack])
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const { password, email } = Object.fromEntries(formData) as {
+      password: string
+      email: string
+    }
+
+    const [status, user] = await authLogin(email, password)
+    if (!(status && user)) {
+      return
+    }
+
+    setUser(user as User)
+    localStorage.setItem('user', JSON.stringify(user))
+  }
 
   if (!(user && config)) {
-    return <></>
+    return (
+      <form
+        onSubmit={handleSubmit}
+        className={`${formStyles.form} min-w-md`}
+      >
+        <p>Autentícate</p>
+
+        <input
+          className={globalStyles.textInput}
+          type='email'
+          placeholder='Correo electrónico'
+          name='email'
+        />
+        <PasswordInput
+          name='password'
+          placeholder='Contraseña'
+        />
+
+        <button
+          type='submit'
+          className={globalStyles.formButton}
+        >
+          Inicia sesión
+        </button>
+      </form>
+    )
   }
 
   return (
-    <div>
+    <div className='min-w-md'>
       <header className={webExtensionStyles.header}>
         <div>
           <span />
@@ -132,6 +232,8 @@ export function WebExtension() {
           </button>
         </div>
       </main>
+
+      {a}
     </div>
   )
 }

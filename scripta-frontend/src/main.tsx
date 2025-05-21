@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { Route, Switch } from 'wouter'
+import { Route, Switch, Router } from 'wouter'
 import { Home } from './pages/home/home'
 import { Login } from './pages/login/login'
 import { Register } from './pages/register/register'
@@ -9,36 +9,42 @@ import { WebExtension } from './pages/web-extension/web-extension'
 import { Config } from './pages/config/config'
 import 'tippy.js/dist/tippy.css'
 import './utils/tippy.css'
+import { NotFound } from './pages/not-found/not-found'
+import { useHashLocation } from 'wouter/use-hash-location'
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
-    <Switch>
-      <Route
-        path='/popup'
-        component={WebExtension}
-      />
+    <Router hook={useHashLocation}>
+      <Switch>
+        <Route
+          path='/'
+          component={WebExtension}
+        />
 
-      <Route
-        path='/'
-        component={Home}
-      />
+        <Route
+          path='/home'
+          component={Home}
+        />
 
-      <Route
-        path='/register'
-        component={Register}
-      />
+        <Route
+          path='/register'
+          component={Register}
+        />
 
-      <Route
-        path='/login'
-        component={Login}
-      />
+        <Route
+          path='/login'
+          component={Login}
+        />
 
-      <Route
-        path='/config'
-        component={Config}
-      />
+        <Route
+          path='/config'
+          component={Config}
+        />
 
-      <Route>404: No such page!</Route>
-    </Switch>
+        <Route>
+          <NotFound />
+        </Route>
+      </Switch>
+    </Router>
   </StrictMode>
 )

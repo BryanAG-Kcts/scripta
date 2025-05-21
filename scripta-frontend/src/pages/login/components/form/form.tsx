@@ -5,6 +5,7 @@ import type { FormEvent } from 'react'
 import { useLocation } from 'wouter'
 import { authLogin } from './constants'
 import formStyles from './styles.module.css'
+import type { User } from '@/hooks/useUser/interfaces'
 
 export function Form() {
   const [, setLocation] = useLocation()
@@ -18,14 +19,14 @@ export function Form() {
       email: string
     }
 
-    const data = await authLogin(email, password)
-    if (!data[0]) {
+    const [status, user] = await authLogin(email, password)
+    if (!(status && user)) {
       return
     }
 
-    setUser(data[1].data)
-    localStorage.setItem('user', JSON.stringify(data[1].data))
-    setLocation('/')
+    setUser(user as User)
+    localStorage.setItem('user', JSON.stringify(user))
+    setLocation('/home')
   }
 
   return (

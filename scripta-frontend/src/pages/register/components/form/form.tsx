@@ -25,7 +25,6 @@ export function Form() {
     }
 
     const data = await authRegister(userEmail, password, username)
-
     if (!data) {
       Swal.fire({
         title: 'Error',

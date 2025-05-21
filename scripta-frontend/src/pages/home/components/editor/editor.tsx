@@ -12,7 +12,6 @@ import { useUser } from '@/hooks/useUser/useUser'
 import { useLocation } from 'wouter'
 import type { User } from '@/hooks/useUser/interfaces'
 import type { feedBackText } from '@/hooks/useText/interfaces'
-import { createTippy } from '@/utils/tippy'
 
 export function Editor() {
   const [textareaValue, setTextareaValue] = useState('')
@@ -24,7 +23,7 @@ export function Editor() {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    const events : EventListener[] = []
+    const events: EventListener[] = []
     ;(async () => {
       const iUser: User | null =
         user || JSON.parse(window.localStorage.getItem('user') || 'null')
@@ -57,7 +56,6 @@ export function Editor() {
           ).output.errors as feedBackText[]
 
           setFeedBack(data)
-          createTippy(input, data)
           mirror.innerHTML = highlightText(
             input,
             data.map(e => e.position)

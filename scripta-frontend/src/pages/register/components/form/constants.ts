@@ -6,7 +6,7 @@ export async function authRegister(
   username: string
 ) {
   try {
-    const response = await fetch('http://localhost:8000/auth/register', {
+    const response = await fetch('https://scripta-backend.vercel.app/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
