@@ -162,7 +162,7 @@ export function WebExtension() {
 
         <div>
           <a
-            href='/'
+            href='https://scripta.vercel.app/#/login'
             className={webExtensionStyles.externalEditor}
           >
             <p>Abrir editor en linea</p>
