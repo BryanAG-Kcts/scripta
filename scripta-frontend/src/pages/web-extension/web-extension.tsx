@@ -10,7 +10,7 @@ import { CheckItem } from './components/check-item/check-item'
 import { ListItem } from './components/list-item/list-item'
 import webExtensionStyles from './styles.module.css'
 import { useConfig } from '@/hooks/useConfig/useConfig'
-import { type FormEvent, useEffect, useState } from 'react'
+import { type FormEvent, useEffect } from 'react'
 import { Link } from 'wouter'
 import { useUser } from '@/hooks/useUser/useUser'
 import globalStyles from '@/index.module.css'
@@ -18,18 +18,10 @@ import formStyles from '../login/components/form/styles.module.css'
 import { PasswordInput } from '@/components/password-input/password-input'
 import type { User } from '@/hooks/useUser/interfaces'
 import { authLogin } from '../login/components/form/constants'
-import { createMirror, deleteMirror } from '@/utils/mirror'
-import { debounce } from '@/utils/debounce'
-import { cleanHighlight, highlightText } from '@/utils/highlightText'
-import { fetchIa } from '@/utils/fetchIa'
-import type { feedBackText } from '@/hooks/useText/interfaces'
-import { useText } from '@/hooks/useText/useText'
 
 export function WebExtension() {
   const { fetchConfig, setConfig, saveConfig, config } = useConfig()
   const { setUser, user } = useUser()
-  const { setFeedBack } = useText()
-  const [a, setA] = useState(0)
 
   useEffect(() => {
     ;(async () => {
@@ -56,52 +48,6 @@ export function WebExtension() {
       })
     })()
   }, [config])
-
-  useEffect(() => {
-    const events: EventListener[] = []
-    ;(async () => {
-      if (!config) {
-        return
-      }
-
-      const inputs = document.querySelectorAll(
-        "textarea, input[type='text']"
-      ) as NodeListOf<HTMLElement>
-
-      setA(inputs.length)
-
-      for (const input of inputs) {
-        const mirror = createMirror(input)
-        const debounced = debounce(async () => {
-          cleanHighlight(mirror)
-          const data = (
-            await fetchIa(
-              config.tone,
-              config.verbosity,
-              (input as HTMLInputElement).value
-            )
-          ).output.errors as feedBackText[]
-
-          setFeedBack(data)
-          mirror.innerHTML = highlightText(
-            input,
-            data.map(e => e.position)
-          )
-        }, 1000)
-
-        events.push(debounced)
-        input.addEventListener('input', debounced)
-      }
-    })()
-
-    return () => {
-      deleteMirror()
-      for (const event of events) {
-        document.removeEventListener('input', event)
-      }
-      events.length = 0
-    }
-  }, [config, setFeedBack])
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -232,8 +178,6 @@ export function WebExtension() {
           </button>
         </div>
       </main>
-
-      {a}
     </div>
   )
 }

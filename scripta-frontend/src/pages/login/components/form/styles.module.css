@@ -4,6 +4,7 @@
   width: 100%;
   max-width: 500px;
   gap: 14px;
+  padding: 20px;
 }
 
 .form > p {
