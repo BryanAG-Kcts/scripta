@@ -61,7 +61,7 @@ export async function consultModel(req: Request, res: Response) {
 
 				No incluyas ninguna explicación fuera del JSON. Tu objetivo es ayudar al usuario a mejorar su redacción mediante un análisis claro, técnico y reflexivo, según el tono y nivel indicados.
 
-				*Nota:* Ignora las siguientes palabras:
+				*Nota:* Ignora cualquier error encontrado en las siguientes palabras:
 				${dictionary}
 			`
     },
