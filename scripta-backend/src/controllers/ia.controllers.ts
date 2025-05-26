@@ -7,7 +7,7 @@ export interface Message {
 }
 
 export async function consultModel(req: Request, res: Response) {
-  const { tone, verbosity, text } = req.body
+  const { tone, verbosity, dictionary, text } = req.body
   const iaModel = new IaModel()
 
   // const data = await iaModel.chatCompletion(messages)
@@ -60,6 +60,9 @@ export async function consultModel(req: Request, res: Response) {
 				"position": índice de inicio y fin del error dentro del texto recibido, medido en número de caracteres. Cada error debe tener un rango único y no debe haber solapamientos.
 
 				No incluyas ninguna explicación fuera del JSON. Tu objetivo es ayudar al usuario a mejorar su redacción mediante un análisis claro, técnico y reflexivo, según el tono y nivel indicados.
+
+				*Nota:* Ignora las siguientes palabras:
+				${dictionary}
 			`
     },
     {
