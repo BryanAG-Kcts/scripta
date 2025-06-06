@@ -4,7 +4,7 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.runtime.onMessage.addListener((message) => {
-  console.log(message)
+  console.log(message);
   if (message.action === "enviarAlContentScript") {
     chrome.tabs.sendMessage(message.tabId, {
       action: "mostrarMensaje",

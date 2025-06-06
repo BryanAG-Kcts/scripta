@@ -26,7 +26,7 @@ export function Form() {
 
     setUser(user as User)
     localStorage.setItem('user', JSON.stringify(user))
-    setLocation('/home')
+    setLocation('/')
   }
 
   return (

@@ -20,7 +20,8 @@ import type { User } from '@/hooks/useUser/interfaces'
 import { authLogin } from '../login/components/form/constants'
 
 export function WebExtension() {
-  const { fetchConfig, setConfig, saveConfig, config } = useConfig()
+  const { fetchConfig, setConfig, saveConfig, config, pages, words } =
+    useConfig()
   const { setUser, user } = useUser()
 
   useEffect(() => {
@@ -44,10 +45,10 @@ export function WebExtension() {
       chrome.runtime.sendMessage({
         action: 'enviarAlContentScript',
         tabId: tab.id,
-        data: config
+        data: { config, pages, words }
       })
     })()
-  }, [config])
+  }, [config, pages, words])
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -162,8 +163,10 @@ export function WebExtension() {
 
         <div>
           <a
-            href='https://scripta.vercel.app/#/login'
+            href='https://scripta.vercel.app/'
             className={webExtensionStyles.externalEditor}
+            target='_blank'
+            rel='noopener noreferrer'
           >
             <p>Abrir editor en linea</p>
             <IconExternalLink stroke={1} />

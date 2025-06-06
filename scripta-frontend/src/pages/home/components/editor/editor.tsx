@@ -16,7 +16,7 @@ import type { feedBackText } from '@/hooks/useText/interfaces'
 export function Editor() {
   const [textareaValue, setTextareaValue] = useState('')
   const { setFeedBack } = useText()
-  const { config, fetchConfig } = useConfig()
+  const { config, fetchConfig, setConfig, words } = useConfig()
   const { user, setUser } = useUser()
   const [, r] = useLocation()
   const [del, setDel] = useState(false)
@@ -28,14 +28,19 @@ export function Editor() {
       const iUser: User | null =
         user || JSON.parse(window.localStorage.getItem('user') || 'null')
 
-      if (!iUser) {
-        r('/login')
-        return
-      }
-
-      setUser(iUser)
-      if (!config) {
-        await fetchConfig(`${iUser.id}`)
+      if (iUser) {
+        setUser(iUser)
+        if (!config) {
+          await fetchConfig(`${iUser.id}`)
+          return
+        }
+      } else if (!config) {
+        setConfig({
+          state: true,
+          stateDictionary: true,
+          tone: 'informal',
+          verbosity: 'media'
+        })
         return
       }
 
@@ -47,19 +52,35 @@ export function Editor() {
         const mirror = createMirror(input)
         const debounced = debounce(async () => {
           cleanHighlight(mirror)
-          const data = (
-            await fetchIa(
-              config.tone,
-              config.verbosity,
-              (input as HTMLInputElement).value
-            )
-          ).output.errors as feedBackText[]
 
-          setFeedBack(data)
-          mirror.innerHTML = highlightText(
-            input,
-            data.map(e => e.position)
-          )
+          if ((input as HTMLInputElement).value === '') {
+            setFeedBack([])
+          } else {
+            const data = (
+              await fetchIa(
+                config.tone,
+                config.verbosity,
+                (input as HTMLInputElement).value,
+                words
+              )
+            ).output.errors as feedBackText[]
+
+            // const data: feedBackText[] = [
+            //   {
+            //     category: 'a',
+            //     data: 'as',
+            //     explanation: 'a',
+            //     position: [0, 10],
+            //     question: 'a'
+            //   }
+            // ]
+
+            setFeedBack(data)
+            mirror.innerHTML = highlightText(
+              input,
+              data.map(e => e.position)
+            )
+          }
         }, 1000)
 
         events.push(debounced)
@@ -74,7 +95,17 @@ export function Editor() {
       }
       events.length = 0
     }
-  }, [config, user, r, setUser, fetchConfig, setFeedBack, del])
+  }, [
+    config,
+    user,
+    r,
+    setUser,
+    fetchConfig,
+    setFeedBack,
+    del,
+    setConfig,
+    words
+  ])
 
   function handleCopyText() {
     navigator.clipboard.writeText(textareaValue)

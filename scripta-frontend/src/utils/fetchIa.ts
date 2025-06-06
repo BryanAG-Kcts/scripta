@@ -1,4 +1,4 @@
-export async function fetchIa(tone: string, verbosity: string, text: string) {
+export async function fetchIa(tone: string, verbosity: string, text: string, words: string[]) {
   try {
     const response = await fetch(
       'https://scripta-backend.vercel.app/ia/consult',
@@ -10,7 +10,8 @@ export async function fetchIa(tone: string, verbosity: string, text: string) {
         body: JSON.stringify({
           tone,
           verbosity,
-          text
+          text,
+          dictionary: words
         })
       }
     )

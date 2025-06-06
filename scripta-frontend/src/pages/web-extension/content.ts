@@ -127,7 +127,7 @@ function caretEnd(element: HTMLElement) {
   element.focus()
 }
 
-async function fetchIa(tone: string, verbosity: string, text: string) {
+async function fetchIa(tone: string, verbosity: string, text: string, words: string[]) {
   try {
     const response = await fetch(
       'https://scripta-backend.vercel.app/ia/consult',
@@ -139,7 +139,8 @@ async function fetchIa(tone: string, verbosity: string, text: string) {
         body: JSON.stringify({
           tone,
           verbosity,
-          text
+          text,
+          words
         })
       }
     )
@@ -150,6 +151,10 @@ async function fetchIa(tone: string, verbosity: string, text: string) {
   }
 }
 chrome.runtime.onMessage.addListener(message => {
+  if (message.data.pages.includes(window.location.href)) {
+    return
+  }
+
   const waitForInputs = setInterval(() => {
     const inputs = document.querySelectorAll(
       "textarea, input[type='text']"
@@ -237,9 +242,10 @@ chrome.runtime.onMessage.addListener(message => {
           cleanHighlight(mirror)
           const data = (
             await fetchIa(
-              message.data.tone,
-              message.data.verbosity,
-              (input as HTMLInputElement).value
+              message.data.config.tone,
+              message.data.config.verbosity,
+              (input as HTMLInputElement).value,
+              message.data.words
             )
           ).output.errors as feedBackText[]
 
